@@ -11,7 +11,7 @@ import cn.edu.nju.userstorymappingtool.entity.Usertask;
 import cn.edu.nju.userstorymappingtool.service.intf.DividedService;
 import cn.edu.nju.userstorymappingtool.service.intf.OriginalDataService;
 import cn.edu.nju.userstorymappingtool.service.intf.SubTaskService;
-import cn.edu.nju.userstorymappingtool.service.intf.UserService;
+import cn.edu.nju.userstorymappingtool.service.intf.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,7 +30,7 @@ public class SubTaskServiceImpl implements SubTaskService {
     @Autowired
     SubtaskMapper subtaskMapper;
     @Autowired
-    UserService userService;
+    IUserService userService;
     @Autowired
     UserMapper userMapper;
     @Autowired

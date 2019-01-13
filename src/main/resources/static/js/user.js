@@ -34,7 +34,46 @@ $(function(){
             },
         });
     });
+
+    $("#add_user").click(function () {
+        var uusername = $("#username").val();
+        var upassword = $("#password").val();
+        console.log(uusername);
+        var user = {
+            username: uusername,
+            password: upassword
+        };
+        console.log(user);
+        $.ajax({
+            url: "/add_user",
+            type: "post",
+            traditional: true,
+            contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+            dataType: "text",
+            data: user,
+            success: function (data) {
+                console.log(data);
+                if(data=="OK"){
+                    alert("注册成功");
+                    location.href = "/login";
+                }else{
+                    alert(data);
+                }
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                console.log(XMLHttpRequest.status);
+                console.log(XMLHttpRequest.readyState);
+                console.log(textStatus);
+            },
+        });
+    });
+
+    $("#sign_up").click(function () {
+        location.href = "/sign_up";
+    });
+
 });
+
 
 /**
  * 发布任务
@@ -81,8 +120,6 @@ window.onload = function addRelease() {
             }]
         });
     }
-
-
 
 }
 

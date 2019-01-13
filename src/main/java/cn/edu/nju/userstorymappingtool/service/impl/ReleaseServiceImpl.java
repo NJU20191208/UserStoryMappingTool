@@ -5,7 +5,7 @@ import cn.edu.nju.userstorymappingtool.dao.SubtaskMapper;
 import cn.edu.nju.userstorymappingtool.dao.UsertaskMapper;
 import cn.edu.nju.userstorymappingtool.entity.Release;
 import cn.edu.nju.userstorymappingtool.service.intf.ReleaseService;
-import cn.edu.nju.userstorymappingtool.service.intf.UserService;
+import cn.edu.nju.userstorymappingtool.service.intf.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.lang.String;
@@ -28,7 +28,7 @@ public class ReleaseServiceImpl implements ReleaseService {
     @Autowired
     SubtaskMapper subtaskMapper;
     @Autowired
-    UserService userService;
+    IUserService userService;
 
 
 //    @Override
