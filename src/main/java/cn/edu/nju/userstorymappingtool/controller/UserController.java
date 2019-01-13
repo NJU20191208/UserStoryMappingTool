@@ -1,9 +1,7 @@
 package cn.edu.nju.userstorymappingtool.controller;
 
 import cn.edu.nju.userstorymappingtool.entity.User;
-import cn.edu.nju.userstorymappingtool.service.intf.ReleaseService;
-import cn.edu.nju.userstorymappingtool.service.intf.SubTaskService;
-import cn.edu.nju.userstorymappingtool.service.intf.UserService;
+import cn.edu.nju.userstorymappingtool.service.intf.IUserService;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,63 +12,69 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 
-/**
- * @Author: wx
- * @Date: 2018/12/4 17:20
- * @Version 1.0
- */
 //证明是controller层并返回json
 @Controller
 public class UserController {
     //依赖注入
     @Autowired
-    UserService userService;
-
-    @Autowired
-    ReleaseService releaseService;
-
-    @Autowired
-    SubTaskService subTaskService;
+    IUserService userService;
 
 
     @PostMapping("loginjudge")
     @ResponseBody
-    public String loginJudge(HttpServletRequest request,String username,String password){
+    public String loginJudge(HttpServletRequest request, String username, String password) {
         User user = userService.findUserByUserName(username);
-        if (user.getPassword().equals(password)){
+        if (user.getPassword().equals(password)) {
             HttpSession session = request.getSession();
-
-            session.setAttribute("currentUser",user);
-
+            session.setAttribute("currentUser", user);
             return "OK";
-        }
-        else {
+        } else {
             return "用户名或密码错误";
         }
 
     }
 
-    @RequestMapping(value = "/home")
-    public String home( HttpSession httpSession){
-//        User user = (User) httpSession.getAttribute("currentUser");
-//        request.setAttribute("userInfo",user);
-        return "user/home";
-    }
 
-    @RequestMapping(value = "/myreleasetask")
-    public String releaseInfo(){
-            //TODO
-            // 这里写死了
-            int releaseId = releaseService.insertRelease("两两对比排除"); //发布即插入
-            if (releaseId == -1)
-                return "user/myreleasetask";
-            else {
-                //如果该方案未分派则生成方案分派
-                subTaskService.geneSubTask(releaseId);
-                return  "user/myreleasetask";
+    @PostMapping("add_user")
+    @ResponseBody
+    public String addUser(HttpServletRequest request, String username, String password) {
+        User user = userService.findUserByUserName(username);
+        if (user != null) {
+            return "该用户已注册";
+        } else {
+            user = new User();
+            user.setUsername(username);
+            user.setPassword(password);
+            int userID = userService.addUser(user);
+            if (userID > 0) {
+                return "OK";
+            } else {
+                return "注册用户失败";
             }
+        }
+
     }
 
+    @RequestMapping(value = "/home")
+    public String home(HttpServletRequest request, HttpSession httpSession) {
+        User user = (User) httpSession.getAttribute("currentUser");
+        if(user != null) {
+            request.setAttribute("userInfo", user);
+            return "user/home";
+        }else{
+            return "user/login";
+        }
+    }
+
+    @RequestMapping(value = "/sign_up")
+    public String signUp(HttpSession httpSession) {
+        return "user/signup";
+    }
+
+    @RequestMapping(value = "/login")
+    public String login(HttpSession httpSession) {
+        return "user/login";
+    }
 
 
 }
