@@ -15,7 +15,5 @@ public interface IUserService {
 
     public User findUserByUserName(String username);
 
-    public  List<Integer> selectAllId();
-
     public int addUser(User user);
 }
