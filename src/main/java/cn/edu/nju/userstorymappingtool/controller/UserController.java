@@ -20,11 +20,11 @@ public class UserController {
     IUserService userService;
 
 
-    @PostMapping("loginjudge")
+    @PostMapping("login")
     @ResponseBody
     public String loginJudge(HttpServletRequest request, String username, String password) {
         User user = userService.findUserByUserName(username);
-        if (user.getPassword().equals(password)) {
+        if (user != null && user.getPassword() != null && user.getPassword().equals(password)) {
             HttpSession session = request.getSession();
             session.setAttribute("currentUser", user);
             return "OK";
@@ -55,25 +55,25 @@ public class UserController {
 
     }
 
-    @RequestMapping(value = "/home")
+    @RequestMapping(value = "/")
     public String home(HttpServletRequest request, HttpSession httpSession) {
         User user = (User) httpSession.getAttribute("currentUser");
         if(user != null) {
             request.setAttribute("userInfo", user);
-            return "user/home";
+            return "workspace";
         }else{
-            return "user/login";
+            return "login";
         }
     }
 
-    @RequestMapping(value = "/sign_up")
+    @RequestMapping(value = "/signup")
     public String signUp(HttpSession httpSession) {
-        return "user/signup";
+        return "signup";
     }
 
     @RequestMapping(value = "/login")
     public String login(HttpSession httpSession) {
-        return "user/login";
+        return "login";
     }
 
 
