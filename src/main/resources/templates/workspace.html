@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta name="viewport" content="width=device-width"/>
     <meta name="description" content="Login to work on your product vision"/>
@@ -33,7 +33,7 @@
                     <div class="header-menu-item inline-block" data-bind="userRole:'WorkspaceAdmin,SubscriptionAdmin'">
                         <div class="manage-dropdown-menu" data-bind="dropdownmenu: true" data-ui-type="dropdown-menu">
                             <a class="menu-button" href="#" tabindex="1">
-                                <i class="menu-button-icon user-icon"></i><span data-bind="text:userName">#{${session.currentUser.username}}</span>
+                                <i class="menu-button-icon user-icon"></i><span data-bind="text:userName" th:text="${session.currentUser.username}">user</span>
                             </a>
                         </div>
                     </div>
