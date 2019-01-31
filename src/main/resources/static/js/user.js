@@ -2,9 +2,9 @@
  * login
  */
 $(function(){
-    $("#login_form").click(function () {
-        var uusername = $("#username").val();
-        var upassword = $("#password").val();
+    $("#login_btn").click(function () {
+        var uusername = $("#UserName").val();
+        var upassword = $("#Password").val();
         console.log(uusername);
         var user = {
             username: uusername,
@@ -12,7 +12,7 @@ $(function(){
         };
         console.log(user);
         $.ajax({
-            url: "/loginjudge",
+            url: "/login",
             type: "post",
             traditional: true,
             contentType: "application/x-www-form-urlencoded; charset=UTF-8",
@@ -21,7 +21,7 @@ $(function(){
             success: function (data) {
                 console.log(data);
                 if(data=="OK"){
-                    location.href = "/home";
+                    location.href = "/workspace";
                 }else{
                     alert(data);
                 }
@@ -35,13 +35,13 @@ $(function(){
         });
     });
 
-    $("#add_user").click(function () {
-        var uusername = $("#username").val();
-        var upassword = $("#password").val();
-        console.log(uusername);
+    $("#signup_btn").click(function () {
+        var username = $("#Name").val();
+        var password = $("#Password").val();
+        console.log(username);
         var user = {
-            username: uusername,
-            password: upassword
+            username: username,
+            password: password
         };
         console.log(user);
         $.ajax({
@@ -69,59 +69,10 @@ $(function(){
     });
 
     $("#sign_up").click(function () {
-        location.href = "/sign_up";
+        location.href = "/signup";
     });
 
 });
-
-
-/**
- * 发布任务
- */
-window.onload = function addRelease() {
-    var btn = document.getElementById("addReleaseTask");
-    btn.onclick = function () {
-        $("body").append("<div id='dlg_lost' style='padding:20px;'></div>");
-        $('#dlg_lost').dialog({
-            href:path+'/user/login.html',
-            modal:true,
-            closed:false,
-            title:'信息发布',
-            width:580,
-            height:380,
-            buttons:[{
-                text:'提交',
-                iconCls:'icon-ok',
-                handler:function(){
-                    $('#form_lost').form('submit',{
-                        url:path+'/LostServlet',
-                        onSubmit:function(){
-                            return $(this).form('validate');
-                        },
-                        success:function(data){
-                            if(data == "-1"){
-                                $.messager.alert('系统消息','请登录后发布信息！','error');
-                            }else{
-                                $.messager.alert('系统消息','发布成功！','info',function(){
-                                    $('#dlg_lost').dialog('refresh');
-                                    $('#dlg_lost').dialog('close');
-                                    location.href = path+'/users/lost_list.jsp';
-                                },false);
-                            }
-                        }
-                    });
-                }
-            },{
-                text:'重置',
-                iconCls:'icon-reload',
-                handler:function(){
-                    $('#dlg_lost').dialog('refresh');
-                }
-            }]
-        });
-    }
-
-}
 
 
 

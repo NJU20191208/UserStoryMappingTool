@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <meta name="description" content="Login to work on your product vision" />
+	<meta name="msapplication-TileColor" content="#da532c">
+	<meta name="theme-color" content="#ffffff">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>创建用户故事-用户故事工具</title>
+    <link href="./css/main.css" rel="stylesheet"/>
+    <link href="./css/jquery.reject.css" rel="stylesheet" />
+    <link rel="shortcut icon" type="image/x-icon" href="https://app.storiesonboard.com/favicon.ico">
+	<link rel="apple-touch-icon" sizes="180x180" href="https://app.storiesonboard.com/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="https://app.storiesonboard.com/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="https://app.storiesonboard.com/favicon-16x16.png">
+</head>
+
+<body>
+    <div id="header-background" class="default-sized"></div>
+    <div id="application-host">
+        <div id="application-host-views" data-bind="foreach: { data: framework.core.ApplicationContext.getSingleInstance().getPresenter().currentModels, afterAdd: framework.core.ApplicationContext.getSingleInstance().getPresenter().showNewViewTransition.bind(framework.core.ApplicationContext.getSingleInstance().getPresenter()) }" style="overflow: visible;"><div data-bind="root: { name: tmpl, data: viewModel, afterRender: function() {if (getKeepPreloader() === false) framework.core.ApplicationContext.getSingleInstance().getPresenter().hidePreloader(); viewModel.afterRender ? viewModel.afterRender.bind(viewModel)() : function() {}; getAfterRenderFunc() ? getAfterRenderFunc()() : function() {}; } }, attr: { id : domElementId }, css: cssClass" style="" id="__view_NewStoryMapViewModel" class="newstorymap"> <div id="header" data-bind="disableContextMenu:true">
+        <div id="header-title" data-bind="section: { name: 'header-title-section', optional: true }">
+            <a data-bind="redirect: globalConfig.workspacesUrl" class="back btn-icon light" href="https://app.storiesonboard.com">
+                <i class="back-icon"></i>
+            </a>
+            <a class="brand link" data-bind="text: workspaceName, go:'/'" href="#">工作空间</a>
+        </div>
+        <div id="header-menu" data-bind="section: { name: 'header-menu-section', optional: true }">
+            <!-- Menu section -->
+            <div class="header-menu-item inline-block" data-bind="userRole:'WorkspaceAdmin,SubscriptionAdmin'">
+                <div class="manage-dropdown-menu" data-bind="dropdownmenu: true" data-ui-type="dropdown-menu">
+                    <a class="menu-button" href="#" tabindex="1">
+                        <i class="menu-button-icon user-icon"></i><span data-bind="text:userName">yaozs</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        <div id="wrapper" data-bind="disableContextMenu:true">
+        <!--<div class="header-shadow"></div>-->
+        <div data-bind="section: { name: 'sub-header-section', optional: true }">
+        <div data-bind="template: { name: 'templates:sub-header', data: {
+            title: 'Create a new story map',
+            description: '',
+            goBackByHistory: true
+            } }">
+            <div id="sub-header">
+                <div class="sub-header-btn">
+                    <a class="btn-icon light link" data-bind="go: { url: $data.url || '/', goBackByHistory: (($data.goBackByHistory !== undefined) ? $data.goBackByHistory : false) },attr.href:$data.url || '/'" href="/">
+                    </a>
+                </div>
+                <div class="sub-header-title" data-bind="text:title">创建一个新的用户故事</div>
+                <div class="sub-header-description" data-bind="text:description"></div>
+            </div>
+        </div>
+    </div>
+    <!-- Main section -->
+    <div class="cf" data-bind="section: { view: view, name: 'main-section' }">
+    <div id="main" class="cf">
+        <form>
+            <fieldset>
+                <legend>
+                    名称和描述
+                    <span></span>
+                </legend>
+                <div class="control-group">
+                    <div class="control w-2-3">
+                        <label>
+                            名称
+                            <input id="storymap-name" data-bind="value: name, hasFocus: isNameFieldFocused" tabindex="1" maxlength="200" type="text">
+                        </label>
+                        <span class="help-block">名称不能超过200个字符。</span>
+                    </div>
+                    <div class="control w-2-3" style="position: relative">
+                        <span class="validation-message" data-bind="validationMessage: name" style="display: none;"></span>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <div class="control w-2-3">
+                        <label>
+                            描述
+                            <textarea data-bind="value: description" tabindex="2" maxlength="4000"></textarea>
+                        </label>
+                        <span class="help-block">描述是可选的。</span>
+                    </div>
+                    <div class="control w-2-3" style="position: relative"></div>
+                </div>
+            </fieldset>
+
+            <div class="form-action-buttons">
+                <button type="submit" class="btn-action-primary" data-bind="btnClick: saveAndGoBack, btnClickDisabled: shouldSaveButtonBeDisabled, css: {disabled: shouldSaveButtonBeDisabled}" tabindex="100">保存</button>
+                <button type="submit" class="btn-action" data-bind="btnClick: saveAndGoToStoryMap, btnClickDisabled: shouldSaveButtonBeDisabled, css: {disabled: shouldSaveButtonBeDisabled}" tabindex="100">保存并前往用户故事</button>
+                <button type="button" class="btn-action link" data-bind="go: { url: '/managestorymaps', goBackByHistory: true }" tabindex="100" href="/managestorymaps">取消</button>
+            </div>
+        </form>
+    </div>
+    </div>
+</div>
+</div>
+</div>
+</div>
+
+</body>
+</html>
