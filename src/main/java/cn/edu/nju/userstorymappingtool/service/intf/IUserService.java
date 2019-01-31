@@ -10,7 +10,6 @@ import java.util.List;
  * @Date: 2019/01/13
  * @Version 1.0
  */
-@Repository
 public interface IUserService {
 
     public User findUserByUserName(String username);
