@@ -15,7 +15,7 @@ public class StoryMapServiceImpl implements IStoryMapService {
     StorymapMapper storymapMapper;
 
     @Override
-    public List<Storymap> getAllMapsByUserid(Long userid){
+    public List<Storymap> getAllMapsByUserid(Long userid) {
         return storymapMapper.selectAllMapsByUserid(userid);
     }
 
