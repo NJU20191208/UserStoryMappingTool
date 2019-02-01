@@ -3,6 +3,15 @@ package cn.edu.nju.userstorymappingtool.controller;
 import cn.edu.nju.userstorymappingtool.entity.Storymap;
 import cn.edu.nju.userstorymappingtool.entity.User;
 import cn.edu.nju.userstorymappingtool.service.intf.IStoryMapService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 @Controller
 public class StoryMapController {
@@ -18,12 +27,22 @@ public class StoryMapController {
             Storymap storymap = new Storymap();
             storymap.setName(name);
             storymap.setDescription(description);
+            storymap.setUserid(user.getUserid());
             Long mapid = storyMapService.addStoryMap(storymap);
-            model.addAttribute("status", "OK");
-            model.addAttribute("mapid", mapid);
-            return "OK";
+            return mapid.toString();
         } else {
             return "login";
         }
+    }
+
+    @RequestMapping(value = "/newstorymap")
+    public String newStoryMap(HttpSession httpSession) {
+        User user = (User) httpSession.getAttribute("currentUser");
+        if(user != null) {
+            return "newstorymap";
+        }else{
+            return "login";
+        }
+
     }
 }

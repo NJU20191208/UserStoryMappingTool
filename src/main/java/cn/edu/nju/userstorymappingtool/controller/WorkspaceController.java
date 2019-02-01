@@ -23,7 +23,7 @@ public class WorkspaceController {
         User user = (User) httpSession.getAttribute("currentUser");
         if(user != null) {
             List<Storymap> storymaps = storymapService.getAllMapsByUserid(user.getUserid());
-            model.addAllAttributes(storymaps);
+            model.addAttribute("storymaps", storymaps);
             return "workspace";
         }else{
             return "login";

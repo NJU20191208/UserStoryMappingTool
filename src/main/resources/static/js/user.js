@@ -30,6 +30,7 @@ $(function(){
                 console.log(XMLHttpRequest.status);
                 console.log(XMLHttpRequest.readyState);
                 console.log(textStatus);
+                alert("服务发生错误！");
 
             },
         });
@@ -64,6 +65,7 @@ $(function(){
                 console.log(XMLHttpRequest.status);
                 console.log(XMLHttpRequest.readyState);
                 console.log(textStatus);
+                alert("服务发生错误！");
             },
         });
     });

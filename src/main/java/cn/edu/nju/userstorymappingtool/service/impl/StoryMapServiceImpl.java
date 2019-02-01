@@ -3,6 +3,7 @@ package cn.edu.nju.userstorymappingtool.service.impl;
 import cn.edu.nju.userstorymappingtool.dao.StorymapMapper;
 import cn.edu.nju.userstorymappingtool.entity.Storymap;
 import cn.edu.nju.userstorymappingtool.service.intf.IStoryMapService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,7 +20,7 @@ public class StoryMapServiceImpl implements IStoryMapService {
     }
 
     @Override
-    public int addStroyMap(Storymap storymap) {
+    public long addStoryMap(Storymap storymap) {
         return storymapMapper.insert(storymap);
     }
 }
