@@ -15,7 +15,6 @@
     <link rel="icon" type="image/png" sizes="32x32" href="https://app.storiesonboard.com/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="https://app.storiesonboard.com/favicon-16x16.png">
 </head>
-
 <body>
 <div id="header-background" class="default-sized"></div>
 <div id="application-host">
@@ -25,405 +24,118 @@
         <div data-bind="root: { name: tmpl, data: viewModel, afterRender: function() {if (getKeepPreloader() === false) framework.core.ApplicationContext.getSingleInstance().getPresenter().hidePreloader(); viewModel.afterRender ? viewModel.afterRender.bind(viewModel)() : function() {}; getAfterRenderFunc() ? getAfterRenderFunc()() : function() {}; } }, attr: { id : domElementId }, css: cssClass"
              style="" id="__view_DashboardViewModel" class="dashboard">
             <div id="header" data-bind="disableContextMenu:true">
-                <div id="header-title" data-bind="section: { name: 'header-title-section', optional: true }">
-                    <a class="brand link" data-bind="text: workspaceName, go:'/'" href="#">工作空间</a>
-                </div>
+                <div id="header-title" data-bind="section: { name: 'header-title-section', optional: true }"><a
+                        class="brand link" data-bind="text: workspaceName, go:'/'" href="#">工作空间</a></div>
                 <div id="header-menu" data-bind="section: { name: 'header-menu-section', optional: true }">
                     <!-- Menu section -->
                     <div class="header-menu-item inline-block" data-bind="userRole:'WorkspaceAdmin,SubscriptionAdmin'">
-                        <div class="manage-dropdown-menu" data-bind="dropdownmenu: true" data-ui-type="dropdown-menu">
-                            <a class="menu-button" href="#" tabindex="1">
-                                <i class="menu-button-icon user-icon"></i><span data-bind="text:userName" th:text="${session.currentUser.username}">user</span>
-                            </a>
+                        <div class="manage-dropdown-menu" data-bind="dropdownmenu: true" data-ui-type="dropdown-menu"><a
+                                class="menu-button" href="#" tabindex="1"><i
+                                class="menu-button-icon user-icon"></i><span data-bind="text:userName"
+                                                                             th:text="${session.currentUser.username}">user</span></a>
                         </div>
                     </div>
                 </div>
             </div>
-
-
-            <div id="wrapper" data-bind="disableContextMenu:true">
-                <!--<div class="header-shadow"></div>-->
+            <div id="wrapper" data-bind="disableContextMenu:true"><!--<div class="header-shadow"></div>-->
                 <div data-bind="section: { name: 'sub-header-section', optional: true }">
-                    <!--{{#template 'templates:trial-alert' /}}
-                    {{#template 'templates:limits-exceed-alert' /}}
-                    {{#template 'templates:email-confirmation-alert' /}}-->
-                </div>
+                    <!--{{#template 'templates:trial-alert' /}} {{#template 'templates:limits-exceed-alert' /}} {{#template 'templates:email-confirmation-alert' /}}--></div>
                 <!-- Main section -->
                 <div class="cf" data-bind="section: { view: view, name: 'main-section' }">
                     <div class="wrapper-inner"
                          data-bind="css: { 'dashboard-right-for-pinned-search' : isSearchPanelPinned() }, winWidth: winWidth">
-
-                        <div id="main" class="dashboard-content cf">
-
-
-                            <!-- No story maps -->
-                            <!--ko ifnot:hasStoryMaps--><!--/ko-->
-
-
-                            <!--ko if:hasStoryMaps-->
-
-                            <div class="tile-group-row cf">
-
-                                <!-- Storymaps -->
-
-                                <div id="dashboard-storymaps" class="tile-group three-column" data-bind="visible: hasStoryMaps(), css: {
-                 'one-column' : dashboardHasOneColumn,
-                 'two-column' : dashboardHasTwoColumn,
-                 'three-column' : dashboardHasThreeColumn }">
-
+                        <div id="main" class="dashboard-content cf"><!-- No story maps --><!--ko ifnot:hasStoryMaps-->
+                            <!--/ko--><!--ko if:hasStoryMaps-->
+                            <div class="tile-group-row cf"><!-- Storymaps -->
+                                <div id="dashboard-storymaps" class="tile-group three-column"
+                                     data-bind="visible: hasStoryMaps(), css: { 'one-column' : dashboardHasOneColumn, 'two-column' : dashboardHasTwoColumn, 'three-column' : dashboardHasThreeColumn }">
                                     <div class="tile-group-header"
                                          data-bind="css: {'collection-tile-header' : showCollectionContent() }">
-                                        <div class="tile-group-header-left">
-                                            <!--ko if:showCollectionContent --><!--/ko-->
-                                            <!--ko ifnot:showCollectionContent -->
-                                            您的故事地图
-                                            <!--/ko-->
-                                        </div>
+                                        <div class="tile-group-header-left"><!--ko if:showCollectionContent -->
+                                            <!--/ko--><!--ko ifnot:showCollectionContent -->您的故事地图<!--/ko--></div>
                                         <div class="tile-group-header-right">
                                             <div data-bind="visible: visibleDashboardItems.pageCount() > 1"
                                                  style="display: none;">
                                                 <div class="tile-pager">
-                                                    <div class="tile-paging-info">
-                                                        <span data-bind="text: visibleDashboardItems.pagingInfo()">1-4 | 4</span>
+                                                    <div class="tile-paging-info"><span
+                                                            data-bind="text: visibleDashboardItems.pagingInfo()">1-4 | 4</span>
                                                     </div>
-                                                    <a class="btn-icon opacitied">
-                                                        <i class="pager-left"
-                                                           data-bind="clickWithTran: { element: '#storymaps-content', onClick: visibleDashboardItems.movePrevious, transition: app.getTransition('pager') }"></i>
-                                                    </a>
-                                                    <a class="btn-icon opacitied">
-                                                        <i class="pager-right"
-                                                           data-bind="clickWithTran: { element: '#storymaps-content', onClick: visibleDashboardItems.moveNext, transition: app.getTransition('pager') }"></i>
-                                                    </a>
+                                                    <a class="btn-icon opacitied"><i class="pager-left"
+                                                                                     data-bind="clickWithTran: { element: '#storymaps-content', onClick: visibleDashboardItems.movePrevious, transition: app.getTransition('pager') }"></i></a><a
+                                                        class="btn-icon opacitied"><i class="pager-right"
+                                                                                      data-bind="clickWithTran: { element: '#storymaps-content', onClick: visibleDashboardItems.moveNext, transition: app.getTransition('pager') }"></i></a>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-
-                                    <div class="tile-group-content" id="storymaps-content">
+                                    <div class="tile-group-content" id="storymaps-content" th:each="storymap : ${storymaps}">
                                         <div class="tile-cell" data-bind="visible: showCollectionContent()"
                                              style="display: none;">
-                                            <div class="tile-storymaps tile-back" data-bind="">
-                                                <a data-bind="clickWithTran: { element: '#storymaps-content', onClick: closeCollection, transition: app.getTransition('pager') }">
-                                                    <div class="action">
-                                                        <div>
-                                                            <span class="h6"><i class="back-to-storymaps"></i>Back to dashboard</span>
-                                                        </div>
+                                            <div class="tile-storymaps tile-back" data-bind=""><a
+                                                    data-bind="clickWithTran: { element: '#storymaps-content', onClick: closeCollection, transition: app.getTransition('pager') }">
+                                                <div class="action">
+                                                    <div><span class="h6"><i class="back-to-storymaps"></i>Back to dashboard</span>
                                                     </div>
-                                                </a>
-
-                                            </div>
+                                                </div>
+                                            </a></div>
                                         </div>
-
-                                        <!-- ko foreach: visibleDashboardItems.currentPageData -->
-
-                                        <!--ko if:isCollection--><!--/ko-->
-
-                                        <!-- ko ifnot: isCollection -->
                                         <div class="tile-cell"
                                              data-bind="css: storymap.isArchived() ? ' archived' : '',  showElementOnHover: { selector: '.favorite-storymap', delay: 100 }">
                                             <div class="tile-storymaps"
                                                  data-bind="clickAndStop: function() { storymap.goToStorymapIfNotArchived($data) }">
-
-                                                <!--ko if:storymap.isFavoritingEnabledOnThisMap-->
-                                                <!--ko if:$parent.isFavoritingVisible -->
-                                                <!--ko ifnot:storymap.isArchived -->
-                                                <!--ko ifnot:storymap.isFavorite-->
-                                                <div class="favorite-storymap" style="display: none;">
-                                                    <i class="app-icon-favorite-o"
-                                                       data-bind="clickAndStop: function() { $root.favoriteStorymap(storymap) }, qtip: { position: 'right', qtipTip: { width:'8', height: '6' }, classes:'qtip-tipsy qtip-sob qtip-favorite-storymap'  }"
-                                                       data-hasqtip="0"
-                                                       oldtitle="Favorite this story map. Favorited items are go to the top of your story map list."
-                                                       title=""></i>
+                                                <div class="favorite-storymap"><i class="app-icon-favorite-o"
+                                                                                  data-bind="clickAndStop: function() { $root.favoriteStorymap(storymap) }, qtip: { position: 'right', qtipTip: { width:'8', height: '6' }, classes:'qtip-tipsy qtip-sob qtip-favorite-storymap'  }"
+                                                                                  data-hasqtip="1"
+                                                                                  oldtitle="Favorite this story map. Favorited items are go to the top of your story map list."
+                                                                                  title=""></i></div>
+                                                <span class="caption" data-bind="truncate: {text: storymap.name, height: 73}, css: { tile-indent-caption : storymap.isPublic() || storymap.isWorkspaceVisible() }"  th:text="${storymap.name}">GuideMap</span><span
+                                                    class="description"
+                                                    data-bind="truncate: {text: storymap.description, height: 55}"  th:text="${story.description}">Sample project for demonstrating how to use StoriesOnBoard for User Story Mapping.</span>
+                                                <span data-bind="visible: storymap.isArchived()" style="display: none;"><div>
+                                                <span class="extra-small-font">Archived </span><span
+                                                    class="extra-small-font"
+                                                    data-bind="timeago: storymap.archivedAt">-</span>
+                                                <span class="extra-small-font">by</span>
+                                                <span class="extra-small-font" data-bind="text:storymap.archivedBy"></span></div>
+                                            </span>
+                                                <div><span class="bottom_left"><span class="h5" th:text="${story.releasenum}">0</span><span
+                                                        class="extra-small-font">发布</span></span><span
+                                                        class="bottom_right"><span class="h5" th:text="${story.ongoingstorynum}">0</span><span
+                                                        class="h5">/</span><span class="h5" th:text="${story.storynum}">0</span><span
+                                                        class="extra-small-font">故事</span></span></div>
                                                 </div>
-                                                <!--/ko-->
-
-                                                <!--ko if:storymap.isFavorite--><!--/ko-->
-                                                <!--/ko-->
-                                                <!--/ko-->
-                                                <!--/ko-->
-
-                                                <!--ko if:storymap.isPublic--><!--/ko-->
-                                                <!--ko if:storymap.isWorkspaceVisible--><!--/ko-->
-                                                <span class="caption"
-                                                      data-bind="truncate: {text: storymap.name, height: 73}, css: { tile-indent-caption : storymap.isPublic() || storymap.isWorkspaceVisible() }">2312</span>
-                                                <span class="description"
-                                                      data-bind="truncate: {text: storymap.description, height: 55}"></span>
-                                                <span data-bind="visible: storymap.isArchived()" style="display: none;">
-                        <div>
-                            <span class="extra-small-font">Archived </span>
-                            <span class="extra-small-font" data-bind="timeago: storymap.archivedAt">-</span>
-                            <span class="extra-small-font">by</span>
-                            <span class="extra-small-font" data-bind="text:storymap.archivedBy"></span>
-                        </div>
-                    </span>
-                                                <!--ko ifnot:storymap.isArchived-->
-
-                                                <div>
-                        <span class="bottom_left">
-                            <span class="h5" data-bind="text: storymap.releasesCount">0</span>
-                            <span class="extra-small-font">releases</span>
-                        </span>
-                                                    <span class="bottom_right">
-                            <span class="h5" data-bind="text: storymap.ongoingStoriesCount">0</span>
-                            <span class="h5">/</span>
-                            <span class="h5" data-bind="text: storymap.allStoriesCount">0</span>
-                            <span class="extra-small-font">stories</span>
-                        </span>
-                                                </div>
-                                                <!--/ko-->
-
-
-                                                <!--ko if:storymap.isArchived--><!--/ko-->
-                                            </div>
                                         </div>
-                                        <!-- /ko -->
-
-
-                                        <!--ko if:isCollection--><!--/ko-->
-
-                                        <!-- ko ifnot: isCollection -->
-                                        <div class="tile-cell"
-                                             data-bind="css: storymap.isArchived() ? ' archived' : '',  showElementOnHover: { selector: '.favorite-storymap', delay: 100 }">
-                                            <div class="tile-storymaps"
-                                                 data-bind="clickAndStop: function() { storymap.goToStorymapIfNotArchived($data) }">
-
-                                                <!--ko if:storymap.isFavoritingEnabledOnThisMap-->
-                                                <!--ko if:$parent.isFavoritingVisible -->
-                                                <!--ko ifnot:storymap.isArchived -->
-                                                <!--ko ifnot:storymap.isFavorite-->
-                                                <div class="favorite-storymap">
-                                                    <i class="app-icon-favorite-o"
-                                                       data-bind="clickAndStop: function() { $root.favoriteStorymap(storymap) }, qtip: { position: 'right', qtipTip: { width:'8', height: '6' }, classes:'qtip-tipsy qtip-sob qtip-favorite-storymap'  }"
-                                                       data-hasqtip="1"
-                                                       oldtitle="Favorite this story map. Favorited items are go to the top of your story map list."
-                                                       title=""></i>
-                                                </div>
-                                                <!--/ko-->
-
-                                                <!--ko if:storymap.isFavorite--><!--/ko-->
-                                                <!--/ko-->
-                                                <!--/ko-->
-                                                <!--/ko-->
-
-                                                <!--ko if:storymap.isPublic--><!--/ko-->
-                                                <!--ko if:storymap.isWorkspaceVisible--><!--/ko-->
-                                                <span class="caption"
-                                                      data-bind="truncate: {text: storymap.name, height: 73}, css: { tile-indent-caption : storymap.isPublic() || storymap.isWorkspaceVisible() }">GuideMap</span>
-                                                <span class="description"
-                                                      data-bind="truncate: {text: storymap.description, height: 55}">Sample project for demonstrating how to use StoriesOnBoard for User Story Mapping.
-</span>
-                                                <span data-bind="visible: storymap.isArchived()" style="display: none;">
-                        <div>
-                            <span class="extra-small-font">Archived </span>
-                            <span class="extra-small-font" data-bind="timeago: storymap.archivedAt">-</span>
-                            <span class="extra-small-font">by</span>
-                            <span class="extra-small-font" data-bind="text:storymap.archivedBy"></span>
-                        </div>
-                    </span>
-                                                <!--ko ifnot:storymap.isArchived-->
-
-                                                <div>
-                        <span class="bottom_left">
-                            <span class="h5" data-bind="text: storymap.releasesCount">3</span>
-                            <span class="extra-small-font">releases</span>
-                        </span>
-                                                    <span class="bottom_right">
-                            <span class="h5" data-bind="text: storymap.ongoingStoriesCount">27</span>
-                            <span class="h5">/</span>
-                            <span class="h5" data-bind="text: storymap.allStoriesCount">36</span>
-                            <span class="extra-small-font">stories</span>
-                        </span>
-                                                </div>
-                                                <!--/ko-->
-
-
-                                                <!--ko if:storymap.isArchived--><!--/ko-->
-                                            </div>
-                                        </div>
-                                        <!-- /ko -->
-
-
-                                        <!--ko if:isCollection--><!--/ko-->
-
-                                        <!-- ko ifnot: isCollection -->
-                                        <div class="tile-cell"
-                                             data-bind="css: storymap.isArchived() ? ' archived' : '',  showElementOnHover: { selector: '.favorite-storymap', delay: 100 }">
-                                            <div class="tile-storymaps"
-                                                 data-bind="clickAndStop: function() { storymap.goToStorymapIfNotArchived($data) }">
-
-                                                <!--ko if:storymap.isFavoritingEnabledOnThisMap-->
-                                                <!--ko if:$parent.isFavoritingVisible -->
-                                                <!--ko ifnot:storymap.isArchived -->
-                                                <!--ko ifnot:storymap.isFavorite-->
-                                                <div class="favorite-storymap">
-                                                    <i class="app-icon-favorite-o"
-                                                       data-bind="clickAndStop: function() { $root.favoriteStorymap(storymap) }, qtip: { position: 'right', qtipTip: { width:'8', height: '6' }, classes:'qtip-tipsy qtip-sob qtip-favorite-storymap'  }"
-                                                       data-hasqtip="2"
-                                                       oldtitle="Favorite this story map. Favorited items are go to the top of your story map list."
-                                                       title=""></i>
-                                                </div>
-                                                <!--/ko-->
-
-                                                <!--ko if:storymap.isFavorite--><!--/ko-->
-                                                <!--/ko-->
-                                                <!--/ko-->
-                                                <!--/ko-->
-
-                                                <!--ko if:storymap.isPublic--><!--/ko-->
-                                                <!--ko if:storymap.isWorkspaceVisible--><!--/ko-->
-                                                <span class="caption"
-                                                      data-bind="truncate: {text: storymap.name, height: 73}, css: { tile-indent-caption : storymap.isPublic() || storymap.isWorkspaceVisible() }">千万饿请</span>
-                                                <span class="description"
-                                                      data-bind="truncate: {text: storymap.description, height: 55}"></span>
-                                                <span data-bind="visible: storymap.isArchived()" style="display: none;">
-                        <div>
-                            <span class="extra-small-font">Archived </span>
-                            <span class="extra-small-font" data-bind="timeago: storymap.archivedAt">-</span>
-                            <span class="extra-small-font">by</span>
-                            <span class="extra-small-font" data-bind="text:storymap.archivedBy"></span>
-                        </div>
-                    </span>
-                                                <!--ko ifnot:storymap.isArchived-->
-
-                                                <div>
-                        <span class="bottom_left">
-                            <span class="h5" data-bind="text: storymap.releasesCount">0</span>
-                            <span class="extra-small-font">releases</span>
-                        </span>
-                                                    <span class="bottom_right">
-                            <span class="h5" data-bind="text: storymap.ongoingStoriesCount">0</span>
-                            <span class="h5">/</span>
-                            <span class="h5" data-bind="text: storymap.allStoriesCount">0</span>
-                            <span class="extra-small-font">stories</span>
-                        </span>
-                                                </div>
-                                                <!--/ko-->
-
-
-                                                <!--ko if:storymap.isArchived--><!--/ko-->
-                                            </div>
-                                        </div>
-                                        <!-- /ko -->
-
-
-                                        <!--ko if:isCollection--><!--/ko-->
-
-                                        <!-- ko ifnot: isCollection -->
-                                        <div class="tile-cell"
-                                             data-bind="css: storymap.isArchived() ? ' archived' : '',  showElementOnHover: { selector: '.favorite-storymap', delay: 100 }">
-                                            <div class="tile-storymaps"
-                                                 data-bind="clickAndStop: function() { storymap.goToStorymapIfNotArchived($data) }">
-
-                                                <!--ko if:storymap.isFavoritingEnabledOnThisMap-->
-                                                <!--ko if:$parent.isFavoritingVisible -->
-                                                <!--ko ifnot:storymap.isArchived -->
-                                                <!--ko ifnot:storymap.isFavorite-->
-                                                <div class="favorite-storymap">
-                                                    <i class="app-icon-favorite-o"
-                                                       data-bind="clickAndStop: function() { $root.favoriteStorymap(storymap) }, qtip: { position: 'right', qtipTip: { width:'8', height: '6' }, classes:'qtip-tipsy qtip-sob qtip-favorite-storymap'  }"
-                                                       data-hasqtip="3"
-                                                       oldtitle="Favorite this story map. Favorited items are go to the top of your story map list."
-                                                       title=""></i>
-                                                </div>
-                                                <!--/ko-->
-
-                                                <!--ko if:storymap.isFavorite--><!--/ko-->
-                                                <!--/ko-->
-                                                <!--/ko-->
-                                                <!--/ko-->
-
-                                                <!--ko if:storymap.isPublic--><!--/ko-->
-                                                <!--ko if:storymap.isWorkspaceVisible--><!--/ko-->
-                                                <span class="caption"
-                                                      data-bind="truncate: {text: storymap.name, height: 73}, css: { tile-indent-caption : storymap.isPublic() || storymap.isWorkspaceVisible() }">斯蒂芬三</span>
-                                                <span class="description"
-                                                      data-bind="truncate: {text: storymap.description, height: 55}"></span>
-                                                <span data-bind="visible: storymap.isArchived()" style="display: none;">
-                        <div>
-                            <span class="extra-small-font">Archived </span>
-                            <span class="extra-small-font" data-bind="timeago: storymap.archivedAt">-</span>
-                            <span class="extra-small-font">by</span>
-                            <span class="extra-small-font" data-bind="text:storymap.archivedBy"></span>
-                        </div>
-                    </span>
-                                                <!--ko ifnot:storymap.isArchived-->
-
-                                                <div>
-                        <span class="bottom_left">
-                            <span class="h5" data-bind="text: storymap.releasesCount">0</span>
-                            <span class="extra-small-font">releases</span>
-                        </span>
-                                                    <span class="bottom_right">
-                            <span class="h5" data-bind="text: storymap.ongoingStoriesCount">0</span>
-                            <span class="h5">/</span>
-                            <span class="h5" data-bind="text: storymap.allStoriesCount">0</span>
-                            <span class="extra-small-font">stories</span>
-                        </span>
-                                                </div>
-                                                <!--/ko-->
-
-
-                                                <!--ko if:storymap.isArchived--><!--/ko-->
-                                            </div>
-                                        </div>
-                                        <!-- /ko -->
-                                        <!-- /ko -->
                                     </div>
                                 </div>
-
                                 <div class="dashboard-action-buttons tile-group btn-column">
                                     <div class="tile-group-header">
-                                        <div class="tile-group-header-left">
-                                            操作
-                                        </div>
+                                        <div class="tile-group-header-left">操作</div>
                                     </div>
                                     <div class="tile-group-content horizontal-buttons" id="storymaps-content"
                                          data-bind="css: { 'horizontal-buttons' : showHorizontalActionButtons }">
-
                                         <!--ko if:storymapCreationEnabled-->
-
                                         <div class="tile-cell horizontal-buttons" id="new-storymap-button"
                                              data-bind="css: { 'horizontal-buttons' : showHorizontalActionButtons }">
                                             <div class="tile-btn link"
                                                  data-bind="go: { url: newStorymapUrl }, qtip: { contentId: '#new-storymap-tooltip-content', position: 'right' }"
                                                  href="/newstorymap" data-hasqtip="4">
                                                 <div class="action">
-                                                    <div>
-                                                        <i class="add-icon"></i>
-                                                        <br>
-                                                        <span>创建地图</span>
-                                                    </div>
+                                                    <div><i class="add-icon"></i><br><span>创建地图</span></div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div id="new-storymap-tooltip-content" style="display: none;">
-                                            <span class="new-storymap-tooltip-content-item">You can create a new story map from scratch, import it from an XLSX file or create by copying an existing one.</span>
-                                            <br><br>
-                                            <span class="new-storymap-tooltip-content-item"> You can also create a new sample story map by clicking </span>
-                                            <a class="new-storymap-tooltip-content-item"
-                                               data-bind="click: $root.createSampleStorymap">here</a><span
-                                                class="new-storymap-tooltip-content-item">.</span>
-                                        </div>
-
-                                        <!--/ko-->
-
-                                    </div>
+                                        <div id="new-storymap-tooltip-content" style="display: none;"><span
+                                                class="new-storymap-tooltip-content-item">You can create a new story map from scratch, import it from an XLSX file or create by copying an existing one.</span><br><br><span
+                                                class="new-storymap-tooltip-content-item"> You can also create a new sample story map by clicking </span><a
+                                                class="new-storymap-tooltip-content-item"
+                                                data-bind="click: $root.createSampleStorymap">here</a><span
+                                                class="new-storymap-tooltip-content-item">.</span></div><!--/ko--></div>
                                 </div>
-
-                            </div>
-
-                            <!--/ko-->
-                        </div>
-
-
-                        <!-- Storymap search panel -->
-
+                            </div><!--/ko--></div><!-- Storymap search panel -->
                         <div id="storymap-search-panel" style="">
                             <div class="cf">
-                                <div class="storymap-search-panel-button">
-                                    <a href="/" class="btn btn-icon light link"
-                                       data-bind="clickAndStop: closeSearchPanel">
-                                    </a>
+                                <div class="storymap-search-panel-button"><a href="/" class="btn btn-icon light link"
+                                                                             data-bind="clickAndStop: closeSearchPanel"></a>
                                 </div>
                                 <div class="storymap-search-panel-title">Find story map</div>
                                 <div class="storymap-search-panel-pin"><i
@@ -431,133 +143,40 @@
                                         class="app-icon-pin" data-hasqtip="5" oldtitle="Pin search panel" title=""></i>
                                 </div>
                             </div>
-                            <div class="storymap-search-panel-content">
-                                <input class="storymap-search-keywords" name="keywords"
-                                       data-bind="value: searchKeywords, valueUpdate: 'keyup', hasFocus: isSearchFieldFocused, key: { keyCode: 70, keyModifier: 'ctrlKey', action: function() { searchPanelIsOpened(false); return false;  }}, escKey: function() { searchPanelIsOpened(false); }"
-                                       placeholder="Type story map's name..." type="text">
-
+                            <div class="storymap-search-panel-content"><input class="storymap-search-keywords"
+                                                                              name="keywords"
+                                                                              data-bind="value: searchKeywords, valueUpdate: 'keyup', hasFocus: isSearchFieldFocused, key: { keyCode: 70, keyModifier: 'ctrlKey', action: function() { searchPanelIsOpened(false); return false;  }}, escKey: function() { searchPanelIsOpened(false); }"
+                                                                              placeholder="Type story map's name..."
+                                                                              type="text">
                                 <div class="search-result-container"
                                      data-bind="heightResizer: { selector: '#storymap-search-panel', relative: -155 }"
-                                     style="height: 334px;">
-                                    <!-- ko foreach: searchResults -->
-
+                                     style="height: 334px;"><!-- ko foreach: searchResults -->
                                     <div class="section-title"
                                          data-bind="visible: $root.showSearchResultSectionTitles, text: name"
                                          style="display: none;">All story maps
                                     </div>
-
                                     <ul class="matching-storymap-lists">
-
-                                        <!-- ko foreach: storymaps -->
-
                                         <li data-bind="showElementOnHover: { selector: '.favorite-storymap', delay: 100 }">
-                                            <!--ko if:isArchived--><!--/ko-->
-                                            <!--ko ifnot:isArchived-->
-                                            <a href="#"
-                                               data-bind="clickAndStop: goToStorymapIfNotArchived, attr: { tabindex: 0 }, text: name"
-                                               tabindex="0">2312</a>
-                                            <!--/ko-->
-                                            <!--ko if:isFavoritingEnabledOnThisMap-->
+                                            <!--ko if:isArchived--><!--/ko--><!--ko ifnot:isArchived--><a href="#"
+                                                                                                          data-bind="clickAndStop: goToStorymapIfNotArchived, attr: { tabindex: 0 }, text: name"
+                                                                                                          tabindex="0">GuideMap</a>
+                                            <!--/ko--><!--ko if:isFavoritingEnabledOnThisMap-->
                                             <!-- ko ifnot: isFavorite -->
-                                            <div class="favorite-storymap">
-                                                <i class="app-icon-favorite-o"
-                                                   data-bind="clickAndStop: function() { $root.favoriteStorymap($data) }, qtip: { position: 'left', qtipTip: { width:'8', height: '6' }, classes:'qtip-tipsy qtip-sob qtip-favorite-storymap'  }"
-                                                   data-hasqtip="6"
-                                                   oldtitle="Favorite this story map. Favorited items are go to the top of your story map list."
-                                                   title=""></i>
-                                            </div>
-                                            <!-- /ko -->
-                                            <!-- ko if: isFavorite --><!-- /ko -->
-                                            <!--/ko-->
-                                        </li>
-
-
-                                        <li data-bind="showElementOnHover: { selector: '.favorite-storymap', delay: 100 }">
-                                            <!--ko if:isArchived--><!--/ko-->
-                                            <!--ko ifnot:isArchived-->
-                                            <a href="#"
-                                               data-bind="clickAndStop: goToStorymapIfNotArchived, attr: { tabindex: 0 }, text: name"
-                                               tabindex="0">GuideMap</a>
-                                            <!--/ko-->
-                                            <!--ko if:isFavoritingEnabledOnThisMap-->
-                                            <!-- ko ifnot: isFavorite -->
-                                            <div class="favorite-storymap">
-                                                <i class="app-icon-favorite-o"
-                                                   data-bind="clickAndStop: function() { $root.favoriteStorymap($data) }, qtip: { position: 'left', qtipTip: { width:'8', height: '6' }, classes:'qtip-tipsy qtip-sob qtip-favorite-storymap'  }"
-                                                   data-hasqtip="7"
-                                                   oldtitle="Favorite this story map. Favorited items are go to the top of your story map list."
-                                                   title=""></i>
-                                            </div>
-                                            <!-- /ko -->
-                                            <!-- ko if: isFavorite --><!-- /ko -->
-                                            <!--/ko-->
-                                        </li>
-
-
-                                        <li data-bind="showElementOnHover: { selector: '.favorite-storymap', delay: 100 }">
-                                            <!--ko if:isArchived--><!--/ko-->
-                                            <!--ko ifnot:isArchived-->
-                                            <a href="#"
-                                               data-bind="clickAndStop: goToStorymapIfNotArchived, attr: { tabindex: 0 }, text: name"
-                                               tabindex="0">千万饿请</a>
-                                            <!--/ko-->
-                                            <!--ko if:isFavoritingEnabledOnThisMap-->
-                                            <!-- ko ifnot: isFavorite -->
-                                            <div class="favorite-storymap">
-                                                <i class="app-icon-favorite-o"
-                                                   data-bind="clickAndStop: function() { $root.favoriteStorymap($data) }, qtip: { position: 'left', qtipTip: { width:'8', height: '6' }, classes:'qtip-tipsy qtip-sob qtip-favorite-storymap'  }"
-                                                   data-hasqtip="8"
-                                                   oldtitle="Favorite this story map. Favorited items are go to the top of your story map list."
-                                                   title=""></i>
-                                            </div>
-                                            <!-- /ko -->
-                                            <!-- ko if: isFavorite --><!-- /ko -->
-                                            <!--/ko-->
-                                        </li>
-
-
-                                        <li data-bind="showElementOnHover: { selector: '.favorite-storymap', delay: 100 }">
-                                            <!--ko if:isArchived--><!--/ko-->
-                                            <!--ko ifnot:isArchived-->
-                                            <a href="#"
-                                               data-bind="clickAndStop: goToStorymapIfNotArchived, attr: { tabindex: 0 }, text: name"
-                                               tabindex="0">斯蒂芬三</a>
-                                            <!--/ko-->
-                                            <!--ko if:isFavoritingEnabledOnThisMap-->
-                                            <!-- ko ifnot: isFavorite -->
-                                            <div class="favorite-storymap">
-                                                <i class="app-icon-favorite-o"
-                                                   data-bind="clickAndStop: function() { $root.favoriteStorymap($data) }, qtip: { position: 'left', qtipTip: { width:'8', height: '6' }, classes:'qtip-tipsy qtip-sob qtip-favorite-storymap'  }"
-                                                   data-hasqtip="9"
-                                                   oldtitle="Favorite this story map. Favorited items are go to the top of your story map list."
-                                                   title=""></i>
-                                            </div>
-                                            <!-- /ko -->
-                                            <!-- ko if: isFavorite --><!-- /ko -->
-                                            <!--/ko-->
-                                        </li>
-                                        <!-- /ko -->
+                                            <div class="favorite-storymap"><i class="app-icon-favorite-o"
+                                                                              data-bind="clickAndStop: function() { $root.favoriteStorymap($data) }, qtip: { position: 'left', qtipTip: { width:'8', height: '6' }, classes:'qtip-tipsy qtip-sob qtip-favorite-storymap'  }"
+                                                                              data-hasqtip="7"
+                                                                              oldtitle="Favorite this story map. Favorited items are go to the top of your story map list."
+                                                                              title=""></i></div><!-- /ko -->
+                                            <!-- ko if: isFavorite --><!-- /ko --><!--/ko--></li>
                                     </ul>
-                                    <!-- /ko -->
-
-                                    <!--ko if:searchResults().length == 0--><!--/ko-->
-                                    <!--ko if:showToggleArchivesLinkInSearch --><!--/ko-->
                                 </div>
                             </div>
                         </div>
-
-
-                        <!-- Pinned storymap search panel -->
-
-
-                        <!--ko if:isSearchPanelPinned--><!--/ko-->
-
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
 </body>
 </html>

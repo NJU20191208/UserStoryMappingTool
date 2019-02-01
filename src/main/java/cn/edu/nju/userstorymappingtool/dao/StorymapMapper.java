@@ -43,4 +43,6 @@ public interface StorymapMapper {
      * @mbg.generated
      */
     int updateByPrimaryKey(Storymap record);
+
+    List<Storymap> selectAllMapsByUserid(Long userid);
 }

@@ -68,9 +68,9 @@
                     <div class="control w-2-3">
                         <label>
                             名称
-                            <input id="storymap-name" data-bind="value: name, hasFocus: isNameFieldFocused" tabindex="1" maxlength="200" type="text">
+                            <input id="storymap-name" data-bind="value: name, hasFocus: isNameFieldFocused" tabindex="1" maxlength="20" type="text">
                         </label>
-                        <span class="help-block">名称不能超过200个字符。</span>
+                        <span class="help-block">名称不能超过20个字符。</span>
                     </div>
                     <div class="control w-2-3" style="position: relative">
                         <span class="validation-message" data-bind="validationMessage: name" style="display: none;"></span>
@@ -80,7 +80,7 @@
                     <div class="control w-2-3">
                         <label>
                             描述
-                            <textarea data-bind="value: description" tabindex="2" maxlength="4000"></textarea>
+                            <textarea id="description" data-bind="value: description" tabindex="2" maxlength="200"></textarea>
                         </label>
                         <span class="help-block">描述是可选的。</span>
                     </div>
@@ -89,9 +89,9 @@
             </fieldset>
 
             <div class="form-action-buttons">
-                <button type="submit" class="btn-action-primary" data-bind="btnClick: saveAndGoBack, btnClickDisabled: shouldSaveButtonBeDisabled, css: {disabled: shouldSaveButtonBeDisabled}" tabindex="100">保存</button>
-                <button type="submit" class="btn-action" data-bind="btnClick: saveAndGoToStoryMap, btnClickDisabled: shouldSaveButtonBeDisabled, css: {disabled: shouldSaveButtonBeDisabled}" tabindex="100">保存并前往用户故事</button>
-                <button type="button" class="btn-action link" data-bind="go: { url: '/managestorymaps', goBackByHistory: true }" tabindex="100" href="/managestorymaps">取消</button>
+                <button type="button" id="add_map" class="btn-action-primary" data-bind="btnClick: saveAndGoBack, btnClickDisabled: shouldSaveButtonBeDisabled, css: {disabled: shouldSaveButtonBeDisabled}" tabindex="100">保存</button>
+                <button type="button" id="add_and_open_map" class="btn-action" data-bind="btnClick: saveAndGoToStoryMap, btnClickDisabled: shouldSaveButtonBeDisabled, css: {disabled: shouldSaveButtonBeDisabled}" tabindex="100">保存并前往用户故事</button>
+                <button type="button" class="btn-action link" data-bind="go: { url: '/workspace', goBackByHistory: true }" tabindex="100" href="/managestorymaps">取消</button>
             </div>
         </form>
     </div>

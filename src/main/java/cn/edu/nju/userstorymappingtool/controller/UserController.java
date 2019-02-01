@@ -55,7 +55,7 @@ public class UserController {
 
     }
 
-    @RequestMapping(value = "/")
+    @RequestMapping(value = "")
     public String home(HttpServletRequest request, HttpSession httpSession) {
         User user = (User) httpSession.getAttribute("currentUser");
         if(user != null) {

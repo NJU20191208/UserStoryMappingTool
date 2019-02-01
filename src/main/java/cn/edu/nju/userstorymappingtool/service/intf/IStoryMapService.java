@@ -5,5 +5,9 @@ import cn.edu.nju.userstorymappingtool.entity.Storymap;
 import java.util.List;
 
 public interface IStoryMapService {
-    List<Storymap> getAllMaps(Long userid);
+
+    List<Storymap> getAllMapsByUserid(Long userid);
+
+    long addStoryMap(Storymap storymap);
+
 }

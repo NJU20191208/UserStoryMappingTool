@@ -22,7 +22,7 @@ public class WorkspaceController {
     public String workspace(HttpServletRequest request, HttpSession httpSession, Model model) {
         User user = (User) httpSession.getAttribute("currentUser");
         if(user != null) {
-            List<Storymap> storymaps = storymapService.getAllMaps(user.getUserid());
+            List<Storymap> storymaps = storymapService.getAllMapsByUserid(user.getUserid());
             model.addAllAttributes(storymaps);
             return "workspace";
         }else{
