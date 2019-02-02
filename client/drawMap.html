@@ -1,0 +1,299 @@
+<!doctype html>
+<html>
+	<head>
+		<!--声明当前页面的编码集：charset=gbk,gb2312(中文编码)，utf-8国际编码-->
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+		<!--当前页面的三要素-->
+		<title>html模板</title>
+		<meta name="Keywords" content="关键词,关键词"/>
+		<meta name="description" content=""/>
+
+		<!--css,js-->
+		<style type="text/css">
+			*{margin:0;padding:0;}
+			#title{width:1280px;height:60px;background:black;line-height:60px;}
+			.tname{width:600px;height:60px;color:#33CCCC;line-height:60px;margin-left:20px;float:left;}
+			#map{width:1280px;height:700px;}
+			.map_child{width:1280px;background:#eee;}
+			#story{width:1280px;height:190px;}
+			#release{width:1280px;height:490px;margin-top:5px;position:relative;}
+			.t_r_title{width:1280px;height:30px;border-bottom:dashed 1px #AEAEAE;line-height:30px;}
+			.t_r_name{text-decoration:none;color:#00C6C6;margin-left:10px;}
+			.contextmenu {display: none;position: absolute;width: 200px;background: #FFFFFF;border-radius:5px;overflow: hidden;z-index: 99;}
+			.contextmenu li {border-left: 3px solid transparent;transition: ease 0.3s;}
+			.contextmenu li:hover {background: #CE93D8;border-left: 3px solid #9C27B0;}
+			.contextmenu li a {display: block;padding: 10px;color: #000000;text-decoration:none;transition: ease 0.3s;}
+			.contextmenu li:hover a {color:#0066FF;}
+
+			#story ul{height:85px;}
+			#story ul li{width:140px;height:70px;list-style:none;float:left;display:block;margin-top:8px;margin-right:8px;margin-bottom:8px;}
+			.sm_text{border:1px solid #3366FF;height:70px;width:140px;overflow:hidden;padding:5px;font-family:"微软雅黑";font-size:14px;color:#000000;margin:8px 0 0 8px;}
+			.sc_text{border:1px solid #FFFF00;height:70px;width:140px;overflow:hidden;padding:5px;font-family:"微软雅黑";font-size:14px;color:#000000;margin:8px 0 0 8px;}
+
+			#release ul li{width:140px;height:70px;list-style:none;display:block;}
+			.sd_text{border:1px solid #000;height:70px;width:140px;overflow:hidden;padding:5px;font-family:"微软雅黑";font-size:14px;color:#000000;}
+			#release ul{width:156px;position:absolute;}
+
+			#title ul{margin-left:700px;}
+			#title ul li{list-style:none;float:left;}
+			#title ul .changeColor{width:130px;margin-left:20px;}
+			#title ul .saveMap{width:40px;margin-left:50px;}
+			#title ul li:hover{cursor:pointer;}
+			#title ul li span{color:#fff;}
+
+			.clear{clear:both;}
+		</style>
+
+	</head>
+<body>
+	<object id="colorPanel" width="0" height="0" classid="clsid:3050f819-98b5-11cf-bb82-00aa00bdce0b" ></object>
+	<!--标题-->
+	<div id="title">
+		<div class="tname">
+			<h1>User Story Mapping</h1>
+		</div>
+
+		<ul>
+			<li class="changeColor" >
+				<span onclick="changeColor('m')">改变主故事颜色</span>
+			</li>
+			<li class="changeColor">
+				<span onclick="changeColor('c')">改变子故事颜色</span>
+			</li>
+			<li class="changeColor">
+				<span onclick="changeColor('d')">改变故事细节颜色</span>
+			</li>
+			<li class="saveMap">
+				<span onclick="saveMap()">保存</span>
+			</li>
+		<ul>
+	</div>
+	
+	<!--画布-->
+	<div id="map">
+		<div id="story" class="map_child">
+			<ul class="story_main">
+			</ul>
+			<div class="clear"></div>
+			<ul class="story_child">
+
+			</ul>
+		</div>
+
+		<div id="release" class="map_child">
+			<div class="t_r_title">
+				<a href="javascript:void(0);" class="t_r_name">release1</a>
+			</div>
+		</div>
+	</div>
+
+	<!--<span class="code"></span>-->
+
+	<ul class="contextmenu">
+		<li>
+			<a href="javascript:void(0);">创建主故事</a>
+		</li>
+		<li>
+			<a href="javascript:void(0);">创建子故事</a>
+		</li>
+		<li>
+			<a href="javascript:void(0);">创建故事细节</a>
+		</li>
+		<li>
+			<a href="javascript:void(0);">删除主故事</a>
+		</li>
+		<li>
+			<a href="javascript:void(0);">删除子故事</a>
+		</li>
+		<li>
+			<a href="javascript:void(0);">删除故事细节</a>
+		</li>
+	</ul>
+
+
+</body>
+
+<script src="js/jquery-3.3.1.js"></script>
+<script type="text/javascript">
+	//属性初始颜色
+	var smcolor = "#3399FF";
+	var sccolor = "#FFFF99";
+	var sdcolor = "#fff";
+
+	function changeColor(obj){
+		var textContent;
+		var tempColor;
+		//获得需要上色的对象
+		if(obj == "m"){
+			textContent = $(".sm_text");
+			tempColor = smcolor;
+		}else if(obj == "c"){
+			textContent = $(".sc_text");
+			tempColor = sccolor;
+		}else{
+			textContent = $(".sd_text");
+			tempColor = sdcolor;
+		}
+			
+		if(textContent.length != 0){
+			/*颜色设置（start）*/
+			var Ocolor = colorPanel.ChooseColorDlg(tempColor);//弹出调色板（选中默认值，即当前显示颜色对象的当前颜色）
+			var Hcolor = Ocolor.toString(16);//将八进制转换为十六进制
+			var colorValue = ((Hcolor.length<7)?"#000000".substring(0,7-Hcolor.length):"") + Hcolor;//处理为通用HTML颜色值
+			/*颜色设置（end）*/
+
+			if(obj == "m"){//更新背景色
+				$(".sm_text").css({"background":colorValue,"border-color":colorValue});
+				smcolor = colorValue;
+			}else if(obj == "c"){
+				$(".sc_text").css({"background":colorValue,"border-color":colorValue});
+				sccolor = colorValue;
+			}else{
+				$(".sd_text").css({"background":colorValue,"border-color":"#000"});
+				sdcolor = colorValue;
+			}
+		}else{
+			alert("请先创建对应属性")
+		}	
+
+	}
+
+	//保存地图
+	function saveMap(){
+		var htmlStart = '<!DOCTYPE html><html>';
+  		var htmlEnd = "</html>"
+  		var html = $(":root").html();
+  		var CodeView = htmlStart+html+htmlEnd;
+		$.ajax({
+            url:"",
+            data:{"html":CodeView},
+            type:"POST",
+            success:function(data){
+                alert("保存成功");
+            }
+        });
+	}
+
+	// 文档加载后激活函数
+	$(document).ready(function() {
+		// 鼠标右键事件
+		$(document).contextmenu(function(e) {
+			var winWidth = $(document).width();
+			var winHeight = $(document).height();
+
+			var mouseX = e.pageX;
+			var mouseY = e.pageY;
+
+			var menuWidth = $(".contextmenu").width();
+			var menuHeight = $(".contextmenu").height();
+
+			var minEdgeMargin = 10;
+
+			if(mouseX + menuWidth + minEdgeMargin >= winWidth &&
+				mouseY + menuHeight + minEdgeMargin >= winHeight) {
+				menuLeft = mouseX - menuWidth - minEdgeMargin + "px";
+				menuTop = mouseY - menuHeight - minEdgeMargin + "px";
+			}else if(mouseX + menuWidth + minEdgeMargin >= winWidth) {
+				menuLeft = mouseX - menuWidth - minEdgeMargin + "px";
+				menuTop = mouseY + minEdgeMargin + "px";
+			}else if(mouseY + menuHeight + minEdgeMargin >= winHeight) {
+				menuLeft = mouseX + minEdgeMargin + "px";
+				menuTop = mouseY - menuHeight - minEdgeMargin + "px";
+			}else {
+				menuLeft = mouseX + minEdgeMargin + "px";
+				menuTop = mouseY + minEdgeMargin + "px";
+			};
+			$(".contextmenu").css({
+				"left": menuLeft,
+				"top": menuTop
+			}).show();
+
+			return false;
+		});
+
+		//添加故事
+		$(".contextmenu li").click(function(){
+			var index = $(this).index();
+			switch(index){
+				case 0:
+					var child_story_width = 0;
+					$(".story_child").find("li").each(function(){
+						child_story_width += ($(this).width()+16);
+					});
+					child_story_width += 8;
+					var mainNum = $(".story_main").find("li").length;
+					var main_story_width = 0;
+					$(".story_main").find("li").each(function(){
+						main_story_width += ($(this).width()+parseInt($(this).css("margin-left"))+parseInt($(this).css("margin-right")));
+					});
+					if(mainNum==0){
+						child_story_width = 8;
+					}else{
+						child_story_width = child_story_width - main_story_width;
+						
+					}
+					var main_story_item = "<li style='margin-left:"+child_story_width+"px'><textarea rows='5' cols='17' maxlength='100' class='sm_text' style='background:"+smcolor+"'></textarea></li>";
+					$(".story_main").append(main_story_item);
+					break;
+				case 1:
+					var mainNum = $(".story_main").find("li").length;
+					if(mainNum == 0){
+						alert("未创建主故事");
+						break;
+					}
+					var child_marginLeft = 8
+					var child_story_item = "<li style='margin-left:"+child_marginLeft+"px'><textarea rows='5' cols='17' maxlength='100' class='sc_text' style='background:"+sccolor+"'></textarea></li>";
+					$(".story_child").append(child_story_item);
+					break;
+				case 2:
+					var e = event || window.event;
+					var mouseX = e.pageX;
+					var detailMarginLeft =	Math.floor(mouseX/156)*156;
+					var ulNum = $("#release").find("ul");
+					var isHasDeatil = false;
+					var clickUl;
+					$("#release").find("ul").each(function(){
+						if (parseInt($(this).css("left"))==detailMarginLeft){
+							isHasDeatil = true;
+							clickUl = $(this);
+						}
+					});
+					if(isHasDeatil){
+						clickUl.append("<li style='margin:0 0 8px 8px;'><textarea rows='5' cols='17' maxlength='100' class='sd_text' style='background:"+sdcolor+"'></textarea></li>")
+					}else{
+						$("#release").append("<ul style='left:"+detailMarginLeft+"px'><li style='margin:8px 0 0 8px;><textarea rows='5' cols='17' maxlength='100' class='sd_text' style='background:"+sdcolor+"'></textarea></li></ul>")
+					}
+					break;
+				case 3:
+					$(".story_main").find("li").eq(-1).remove();
+					break;
+				case 4:
+					$(".story_child").find("li").eq(-1).remove();
+					break;
+				case 5:
+					var e = event || window.event;
+					var mouseX = e.pageX;
+					var mouseY = e.pageY;
+					var detailMarginLeft =	Math.floor(mouseX/156)*156;
+					var detailMarginTop = Math.floor(Math.abs(mouseY-244-293)/86);
+					var removeLi;
+					$("#release").find("li").each(function(){
+						if (parseInt($(this).parent().css("left"))==detailMarginLeft && $(this).index()==detailMarginTop){
+							removeLi = $(this);
+						}
+					});
+					
+					if(removeLi != null){
+						removeLi.remove();
+					}
+					break;
+			}
+		});
+
+		$(document).click(function() {
+			$(".contextmenu").hide();
+		});
+	});
+</script>
+
+</html>
