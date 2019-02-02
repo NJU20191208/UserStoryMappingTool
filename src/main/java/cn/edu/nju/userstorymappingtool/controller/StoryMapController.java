@@ -35,14 +35,13 @@ public class StoryMapController {
         }
     }
 
-    @RequestMapping(value = "/newstorymap")
+    @RequestMapping(value = "/drawmap")
     public String newStoryMap(HttpSession httpSession) {
         User user = (User) httpSession.getAttribute("currentUser");
         if(user != null) {
-            return "newstorymap";
+            return "drawmap";
         }else{
             return "login";
         }
-
     }
 }

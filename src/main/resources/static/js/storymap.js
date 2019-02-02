@@ -12,6 +12,10 @@ $(function(){
         location.href = "/newstorymap";
     });
 
+    $(".tile-storymaps").click(function () {
+        location.href = "/drawmap";
+    });
+
 
     function addStoryMap(action){
         var name = $("#storymap-name").val();
