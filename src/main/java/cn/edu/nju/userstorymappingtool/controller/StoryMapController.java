@@ -35,6 +35,18 @@ public class StoryMapController {
         }
     }
 
+    @PostMapping("delete_map")
+    @ResponseBody
+    public String deleteMap(HttpServletRequest request, HttpSession httpSession, Long mapid, Model model) {
+        User user = (User) httpSession.getAttribute("currentUser");
+        if (user != null) {
+            Long deletedMapid = storyMapService.deleteStoryMap(mapid);
+            return deletedMapid.toString();
+        } else {
+            return "login";
+        }
+    }
+
     @RequestMapping(value = "/newstorymap")
     public String newStoryMap(HttpSession httpSession) {
         User user = (User) httpSession.getAttribute("currentUser");

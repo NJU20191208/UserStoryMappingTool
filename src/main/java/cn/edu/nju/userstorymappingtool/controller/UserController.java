@@ -60,7 +60,7 @@ public class UserController {
         User user = (User) httpSession.getAttribute("currentUser");
         if(user != null) {
             request.setAttribute("userInfo", user);
-            return "workspace";
+            return "forward:workspace";
         }else{
             return "home";
         }

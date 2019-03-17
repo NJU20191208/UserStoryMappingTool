@@ -23,4 +23,9 @@ public class StoryMapServiceImpl implements IStoryMapService {
     public long addStoryMap(Storymap storymap) {
         return storymapMapper.insert(storymap);
     }
+
+    @Override
+    public long deleteStoryMap(Long mapid) {
+        return storymapMapper.deleteByPrimaryKey(mapid);
+    }
 }

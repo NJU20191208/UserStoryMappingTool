@@ -44,11 +44,13 @@
   height: 100%;
 }
 .dashboard .favorite-storymap {
-  display: none;
   position: absolute;
   top: 5px;
   right: 5px;
   color: #9fd3ec;
+}
+dashboard .favorite-storymap:hover:after {
+    display: block;
 }
 .dashboard .favorite-storymap-pinned {
   display: block;
@@ -37741,8 +37743,33 @@ input[type="text"].board-release-name-editor:focus {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-.app-icon-favorite-o:before {
-  content: "\f006";
+.app-icon-favorite-o {
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    width: 15px;
+    height:2px;
+    background: #7a7a7a;
+    line-height: 0;
+    font-size:0;
+    vertical-align: middle;
+    -webkit-transform: rotate(45deg);
+}
+.app-icon-favorite-o:after{
+    content:'/';
+    display:block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    width: 15px;
+    height:2px;
+    background: #7a7a7a;
+    -webkit-transform: rotate(-90deg);
 }
 .app-icon-2x {
   font-size: 2em;

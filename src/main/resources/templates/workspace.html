@@ -7,15 +7,18 @@
     <meta name="theme-color" content="#ffffff">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>创建用户故事-用户故事工具</title>
-    <link href="./css/main.css" rel="stylesheet"/>
-    <link href="./css/jquery.reject.css" rel="stylesheet"/>
-    <link href="./css/vms.css" rel="stylesheet"/>
+    <link href="css/main.css" rel="stylesheet"/>
+    <link href="css/jquery.reject.css" rel="stylesheet"/>
+    <link href="css/vms.css" rel="stylesheet"/>
+    <link href="css/jquery-confirm.min.css" rel="stylesheet"/>
+    <link href="css/bundled.css" rel="stylesheet"/>
     <link rel="shortcut icon" type="image/x-icon" href="https://app.storiesonboard.com/favicon.ico">
     <link rel="apple-touch-icon" sizes="180x180" href="https://app.storiesonboard.com/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="https://app.storiesonboard.com/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="https://app.storiesonboard.com/favicon-16x16.png">
     <script src="js/public.js"></script>
     <script src="js/jquery.reject.js"></script>
+    <script src="js/jquery-confirm.min.js"></script>
     <script src="js/storymap.js"></script>
 </head>
 <body>
@@ -73,16 +76,11 @@
                                         </div>
                                     </div>
                                     <div class="tile-group-content" id="storymaps-content">
-                                        <div class="tile-cell" th:each="storymap : ${storymaps}" 
-                                             data-bind="css: storymap.isArchived() ? ' archived' : '',  showElementOnHover: { selector: '.favorite-storymap', delay: 100 }">
-                                            <div class="tile-storymaps"
-                                                 data-bind="clickAndStop: function() { storymap.goToStorymapIfNotArchived($data) }">
+                                        <div class="tile-cell" th:each="storymap : ${storymaps}">
+                                            <div class="tile-storymaps" >
+                                                <span th:text="${storymap.mapid}" style="display:none"></span>
                                                 <div class="favorite-storymap">
-                                                    <i class="app-icon-favorite-o"
-                                                       data-bind="clickAndStop: function() { $root.favoriteStorymap(storymap) }, qtip: { position: 'right', qtipTip: { width:'8', height: '6' }, classes:'qtip-tipsy qtip-sob qtip-favorite-storymap'  }"
-                                                       data-hasqtip="1"
-                                                       oldtitle="Favorite this story map. Favorited items are go to the top of your story map list."
-                                                       title=""></i>
+                                                    <i class="app-icon-favorite-o" title="删除"></i>
                                                 </div>
                                                 <span class="caption"
                                                       data-bind="truncate: {text: storymap.name, height: 73}, css: { tile-indent-caption : storymap.isPublic() || storymap.isWorkspaceVisible() }"
