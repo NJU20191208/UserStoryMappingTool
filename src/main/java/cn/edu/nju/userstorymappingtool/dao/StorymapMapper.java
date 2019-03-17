@@ -49,4 +49,6 @@ public interface StorymapMapper {
     int updateByPrimaryKey(Storymap record);
 
     List<Storymap> selectAllMapsByUserid(Long userid);
+
+    List<Storymap> selectAllMapsByKeyword(Storymap storymap);
 }

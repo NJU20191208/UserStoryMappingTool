@@ -116,62 +116,43 @@
                                     </div>
                                     <div class="tile-group-content horizontal-buttons" id="storymaps-content"
                                          data-bind="css: { 'horizontal-buttons' : showHorizontalActionButtons }">
-                                        <!--ko if:storymapCreationEnabled-->
-                                        <div class="tile-cell horizontal-buttons" id="new-storymap-button"
-                                             data-bind="css: { 'horizontal-buttons' : showHorizontalActionButtons }">
-                                            <div id="go-to-new-storymap" class="tile-btn link"
-                                                 data-bind="go: { url: 'newstorymap' }, qtip: { contentId: '#new-storymap-tooltip-content', position: 'right' }"
-                                                 href="/newstorymap" data-hasqtip="4">
-                                                <div class="action">
-                                                    <div><i class="add-icon"></i><br><span>创建地图</span></div>
+                                        <div id="search-panel-on-dashboard" class="tile-btn" href="#storymap-search-panel">
+                                            <div class="action">
+                                                <div>
+                                                    <i class="search-storymap-icon"></i>
+                                                    <br>
+                                                    <span>查找地图</span>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div id="new-storymap-tooltip-content" style="display: none;"><span
-                                                class="new-storymap-tooltip-content-item">You can create a new story map from scratch, import it from an XLSX file or create by copying an existing one.</span><br><br><span
-                                                class="new-storymap-tooltip-content-item"> You can also create a new sample story map by clicking </span><a
-                                                class="new-storymap-tooltip-content-item"
-                                                data-bind="click: $root.createSampleStorymap">here</a><span
-                                                class="new-storymap-tooltip-content-item">.</span></div><!--/ko--></div>
-                                </div>
-                            </div><!--/ko--></div><!-- Storymap search panel -->
+                                    </div>
+                                    <div class="tile-cell horizontal-buttons" id="new-storymap-button"
+                                         data-bind="css: { 'horizontal-buttons' : showHorizontalActionButtons }">
+                                        <div id="go-to-new-storymap" class="tile-btn link"
+                                             data-bind="go: { url: 'newstorymap' }, qtip: { contentId: '#new-storymap-tooltip-content', position: 'right' }"
+                                             href="/newstorymap" data-hasqtip="4">
+                                            <div class="action">
+                                                <div><i class="add-icon"></i><br><span>创建地图</span></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                            </div>
+                            </div>
 
                         <div id="storymap-search-panel" style="">
                             <div class="cf">
-                                <div class="storymap-search-panel-button"><a href="/" class="btn btn-icon light link"
-                                                                             data-bind="clickAndStop: closeSearchPanel"></a>
+                                <div class="storymap-search-panel-button">
+                                    <a href="#" class="btn btn-icon light link"
+                                       id="close-search-panel">
+                                    </a>
                                 </div>
-                                <div class="storymap-search-panel-title">Find story map</div>
-                                <div class="storymap-search-panel-pin"><i
-                                        data-bind="click: pinSearchPanel, qtip: { position: 'bottom-right', adjustY: 5, adjustX: -15, delay: 1 } "
-                                        class="app-icon-pin" data-hasqtip="5" oldtitle="Pin search panel" title=""></i>
-                                </div>
+                                <div class="storymap-search-panel-title">查找地图</div>
                             </div>
-                            <div class="storymap-search-panel-content"><input class="storymap-search-keywords"
-                                                                              name="keywords"
-                                                                              data-bind="value: searchKeywords, valueUpdate: 'keyup', hasFocus: isSearchFieldFocused, key: { keyCode: 70, keyModifier: 'ctrlKey', action: function() { searchPanelIsOpened(false); return false;  }}, escKey: function() { searchPanelIsOpened(false); }"
-                                                                              placeholder="Type story map's name..."
-                                                                              type="text">
-                                <div class="search-result-container"
-                                     data-bind="heightResizer: { selector: '#storymap-search-panel', relative: -155 }"
-                                     style="height: 334px;"><!-- ko foreach: searchResults -->
-                                    <div class="section-title"
-                                         data-bind="visible: $root.showSearchResultSectionTitles, text: name"
-                                         style="display: none;">All story maps
-                                    </div>
+                            <div class="storymap-search-panel-content">
+                                <input class="storymap-search-keywords" name="keywords" placeholder="输入地图的名字..." type="text" id="keyword">
+                                <div class="search-result-container" style="height: 334px;">
+                                    <li id="base-result" style="display:none"><a href="#" tabindex="0">2312</a></li>
                                     <ul class="matching-storymap-lists">
-                                        <li data-bind="showElementOnHover: { selector: '.favorite-storymap', delay: 100 }">
-                                            <!--ko if:isArchived--><!--/ko--><!--ko ifnot:isArchived--><a href="#"
-                                                                                                          data-bind="clickAndStop: goToStorymapIfNotArchived, attr: { tabindex: 0 }, text: name"
-                                                                                                          tabindex="0">GuideMap</a>
-                                            <!--/ko--><!--ko if:isFavoritingEnabledOnThisMap-->
-                                            <!-- ko ifnot: isFavorite -->
-                                            <div class="favorite-storymap"><i class="app-icon-favorite-o"
-                                                                              data-bind="clickAndStop: function() { $root.favoriteStorymap($data) }, qtip: { position: 'left', qtipTip: { width:'8', height: '6' }, classes:'qtip-tipsy qtip-sob qtip-favorite-storymap'  }"
-                                                                              data-hasqtip="7"
-                                                                              oldtitle="Favorite this story map. Favorited items are go to the top of your story map list."
-                                                                              title=""></i></div><!-- /ko -->
-                                            <!-- ko if: isFavorite --><!-- /ko --><!--/ko--></li>
                                     </ul>
                                 </div>
                             </div>

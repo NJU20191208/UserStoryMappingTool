@@ -59,7 +59,6 @@ $(function(){
        event.stopPropagation();
        var deleteMap = $(this).parent().parent();
        var mapID = $(this).prev().html();
-       console.log("mapid:"+mapID);
        var storyMap = {
            mapid: mapID
        };
@@ -104,6 +103,58 @@ $(function(){
             }
         });
 
+    });
+
+    $("#search-panel-on-dashboard").click(function(){
+        $("#storymap-search-panel").show();
+    });
+
+    $("#close-search-panel").click(function(){
+        $("#storymap-search-panel").hide();
+    });
+
+    $('.storymap-search-keywords').bind('keydown',function(event){
+        if(event.keyCode == "13") {
+            var keyword = $("#keyword").val();
+            console.log("keyword:"+keyword);
+            if(keyword.trim() == ""){
+                return;
+            }
+            $(".matching-storymap-lists").empty();
+            var storyMap = {
+                keyword: keyword
+            };
+            $.ajax({
+                url: "/search_map",
+                type: "post",
+                traditional: true,
+                contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+                dataType: "text",
+                data: storyMap,
+                success: function (data) {
+                    console.log(data);
+                    data = eval(data);
+                    if(data.length > 0){
+                        $.each(data, function(i, item){
+                            console.log(item);
+                            var map = $("#base-result").clone();
+                            map.find("a").html(item["name"]);
+                            map.find("a").attr("href", "/storymap?mapid="+item["mapid"]);
+                            $(".matching-storymap-lists").append(map);
+                            map.show();
+                        });
+                    }else{
+                        $(".matching-storymap-lists").html("未找到结果！");
+                    }
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    console.log(XMLHttpRequest.status);
+                    console.log(XMLHttpRequest.readyState);
+                    console.log(textStatus);
+                    $.alert("服务发生错误！");
+                },
+            });
+        }
     });
 
 });
