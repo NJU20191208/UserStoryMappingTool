@@ -22,7 +22,7 @@ public class UserController {
 
     @PostMapping("login")
     @ResponseBody
-    public String loginJudge(HttpServletRequest request, String username, String password) {
+    public String login(HttpServletRequest request, String username, String password) {
         User user = userService.findUserByUserName(username);
         if (user != null && user.getPassword() != null && user.getPassword().equals(password)) {
             HttpSession session = request.getSession();

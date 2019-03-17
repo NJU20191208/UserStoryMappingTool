@@ -28,4 +28,9 @@ public class StoryMapServiceImpl implements IStoryMapService {
     public long deleteStoryMap(Long mapid) {
         return storymapMapper.deleteByPrimaryKey(mapid);
     }
+
+    @Override
+    public List<Storymap> getAllMapsByKeyword(Storymap storymap) {
+        return storymapMapper.selectAllMapsByKeyword(storymap);
+    }
 }
