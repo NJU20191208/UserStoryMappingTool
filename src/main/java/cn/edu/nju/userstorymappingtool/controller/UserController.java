@@ -62,7 +62,7 @@ public class UserController {
             request.setAttribute("userInfo", user);
             return "workspace";
         }else{
-            return "login";
+            return "home";
         }
     }
 
