@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="css/admin.css" type="text/css" rel="stylesheet" />
+<link rel="stylesheet" href="css/admin_page.css"/>
+<script type="text/javascript" src="js/jquery-1.8.1.min.js"></script>
+<script type="text/javascript" src="js/main.js"></script>
+<script type="text/javascript" src="js/jquery.SuperSlide.2.1.js"></script>
+<script src="js/DD_belatedPNG_0.0.8a.js"  type="text/javascript"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	$("#batchOpenUsers").click(function(){
+		var chk_value =[];    
+		$('input[name="selId"]:checked').each(function(){    
+			chk_value.push($(this).val());    
+		});
+		if(chk_value.length==0){
+			alert("你还没有选择任何内容!");
+		}else{
+			var ids=chk_value.join(",");
+			var href="batchOpenUsers.action?idList="+ids;
+			$("#batchOpenUsers").attr("href",href); 
+		}
+	});
+	$("#batchCloseUsers").click(function(){
+		var chk_value =[];    
+		$('input[name="selId"]:checked').each(function(){    
+			chk_value.push($(this).val());    
+		});
+		if(chk_value.length==0){
+			alert("你还没有选择任何内容!");
+		}else{
+			var ids=chk_value.join(",");
+			var href="batchCloseUsers.action?idList="+ids;
+			$("#batchCloseUsers").attr("href",href); 
+		}
+	});
+});	
+</script>
+</head>
+<body>
+<div class="content">
+    <div class="main_panel">
+        <h3 class="crumbs">
+            <img src="../images/sidebar_h3_bg1.gif" alt=""/> 当前位置：<a href="#">首页&nbsp;&nbsp;&nbsp;></a><a href="#" style="margin-left:-10px">用户管理</a>
+        </h3>
+        <div class="main_content">
+            <div>
+                <a href="#" target="content" class="btn5" style="color:black">添加用户</a>
+                <br/>
+            </div>
+            <table class="table_normal">
+            	<thead>
+                <tr class="td_first">
+                    <th style="width: 5%; text-align: center;">选择</th>
+                    <th style="width: 15%; text-align: center;">用户名</th>
+                    <th style="width: 10%; text-align: center;">修改日期</th>
+                    <th style="width: 20%; text-align: center;">操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <s:iterator value="users">
+                <tr>
+                    <td style="text-align: center;"><input type="checkbox" id="selId" name="selId" value="#"/></td>
+                    <td style="text-align: center"><s:property value="loginName"/></td>
+                    <td style="text-align: center"><e:dateTimeFormat pattern="yyyy-MM-dd" type="long" value="%{modifiedTimestamp}"/></td>
+                    <td style="text-align: center">
+                         <a href="" target="content">重置密码</a>
+						 <a href="" target="content">删除</a>
+                    </td>
+                </tr>
+                </s:iterator>
+                </tbody>
+                <tfoot>
+                <tr>
+                    <td colspan="7">
+                        <div id="pagination" class="scott">
+                        	<e:pages currentPage="%{currentPage}" totalPage="%{totalPageCount}" total="3" url="listUsers.action" showPageNumber="5" cssClass="pagnation">
+		               			<s:param name="loginNameSearch" value="loginNameSearch"></s:param>
+			           			<s:param name="roleSearch" value="roleSearch"></s:param>
+			           			<s:param name="statusSearch" value="statusSearch"></s:param>
+	             			</e:pages>
+                        </div>
+                    </td>
+                </tr>
+                </tfoot>
+
+            </table>
+
+        </div>
+
+    </div>
+</div>
+</body>
+</html>
