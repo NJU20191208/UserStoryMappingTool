@@ -22,6 +22,9 @@ public class WorkspaceController {
     public String workspace(HttpServletRequest request, HttpSession httpSession, Model model) {
         User user = (User) httpSession.getAttribute("currentUser");
         if(user != null) {
+            if("admin".equals(user.getUsername())){
+                return "forward:manage";
+            }
             List<Storymap> storymaps = storymapService.getAllMapsByUserid(user.getUserid());
             model.addAttribute("storymaps", storymaps);
             return "workspace";
