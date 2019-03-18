@@ -127,4 +127,16 @@ public class UserController {
 
     }
 
+    @PostMapping("delete_user")
+    @ResponseBody
+    public String deleteMap(HttpServletRequest request, HttpSession httpSession, Long userid, Model model) {
+        User user = (User) httpSession.getAttribute("currentUser");
+        if (user != null) {
+            Long deletedUserid = userService.deleteUser(userid);
+            return deletedUserid.toString();
+        } else {
+            return "login";
+        }
+    }
+
 }
