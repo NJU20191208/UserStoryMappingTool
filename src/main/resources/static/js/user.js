@@ -10,7 +10,6 @@ $(function(){
             username: uusername,
             password: upassword
         };
-        console.log(user);
         $.ajax({
             url: "/login",
             type: "post",
@@ -19,7 +18,6 @@ $(function(){
             dataType: "text",
             data: user,
             success: function (data) {
-                console.log(data);
                 if(data=="OK"){
                     location.href = "/workspace";
                 }else{

@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link href="css/admin.css" type="text/css" rel="stylesheet" />
@@ -53,38 +53,19 @@ $(document).ready(function(){
             <table class="table_normal">
             	<thead>
                 <tr class="td_first">
-                    <th style="width: 5%; text-align: center;">选择</th>
                     <th style="width: 15%; text-align: center;">用户名</th>
-                    <th style="width: 10%; text-align: center;">修改日期</th>
                     <th style="width: 20%; text-align: center;">操作</th>
                 </tr>
                 </thead>
                 <tbody>
-                <s:iterator value="users">
-                <tr>
-                    <td style="text-align: center;"><input type="checkbox" id="selId" name="selId" value="#"/></td>
-                    <td style="text-align: center"><s:property value="loginName"/></td>
-                    <td style="text-align: center"><e:dateTimeFormat pattern="yyyy-MM-dd" type="long" value="%{modifiedTimestamp}"/></td>
+                <tr th:each="user : ${users}">
+                    <td style="text-align: center" th:text="${user.username}"></td>
                     <td style="text-align: center">
-                         <a href="" target="content">重置密码</a>
-						 <a href="" target="content">删除</a>
+                         <a href="#" target="content">重置密码</a>
+						 <a href="#" target="content">删除</a>
                     </td>
                 </tr>
-                </s:iterator>
                 </tbody>
-                <tfoot>
-                <tr>
-                    <td colspan="7">
-                        <div id="pagination" class="scott">
-                        	<e:pages currentPage="%{currentPage}" totalPage="%{totalPageCount}" total="3" url="listUsers.action" showPageNumber="5" cssClass="pagnation">
-		               			<s:param name="loginNameSearch" value="loginNameSearch"></s:param>
-			           			<s:param name="roleSearch" value="roleSearch"></s:param>
-			           			<s:param name="statusSearch" value="statusSearch"></s:param>
-	             			</e:pages>
-                        </div>
-                    </td>
-                </tr>
-                </tfoot>
 
             </table>
 
