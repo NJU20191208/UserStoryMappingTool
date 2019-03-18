@@ -27,6 +27,11 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
+    public Long deleteUser(Long userid) {
+        return userMapper.deleteByPrimaryKey(userid);
+    }
+
+    @Override
     public User findUserByUserName(String username) {
         User user = userMapper.findUserByUserName(username);
         return user;

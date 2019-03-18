@@ -17,4 +17,6 @@ public interface IUserService {
     int addUser(User user);
 
     List<User> getAllUsers();
+
+    Long deleteUser(Long userid);
 }
