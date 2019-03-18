@@ -19,4 +19,6 @@ public interface IUserService {
     List<User> getAllUsers();
 
     Long deleteUser(Long userid);
+
+    int updateUserPassword(User user);
 }

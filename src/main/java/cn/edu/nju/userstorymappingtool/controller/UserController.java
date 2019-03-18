@@ -116,8 +116,36 @@ public class UserController {
     }
 
     @RequestMapping(value = "/reset_password")
-    public String resetPassword(HttpSession httpSession) {
-        return "resetPassword";
+    public String resetPassword(HttpServletRequest request, HttpSession httpSession, Long userid, String username, Model model) {
+        User user = (User) httpSession.getAttribute("currentUser");
+        if (user != null & "admin".equals(user.getUsername())) {
+            User removeUser = new User();
+            removeUser.setUserid(userid);
+            removeUser.setUsername(username);
+            model.addAttribute("user", removeUser);
+            return "resetPassword";
+        } else {
+            return "login";
+        }
+    }
+
+    @PostMapping("/reset_pw")
+    @ResponseBody
+    public String resetPw(HttpServletRequest request, HttpSession httpSession, Long userid, String password, Model model) {
+        User user = (User) httpSession.getAttribute("currentUser");
+        if (user != null & "admin".equals(user.getUsername())) {
+            User resetUser = new User();
+            resetUser.setUserid(userid);
+            resetUser.setPassword(password);
+            int userID = userService.updateUserPassword(resetUser);
+            if (userID > 0) {
+                return "OK";
+            } else {
+                return "更新密码失败";
+            }
+        } else {
+            return "login";
+        }
     }
 
     @RequestMapping(value = "/logout")

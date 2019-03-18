@@ -60,6 +60,12 @@ $(document).ready(function(){
             }
         });
     })
+
+    $(".reset_pw").click(function(){
+        var userID = $(this).prev("span").html();
+        var username = $(this).parent().prev().html();
+        window.location.href="/reset_password?userid="+userID+"&username="+username;
+    });
 });	
 </script>
 </head>
@@ -86,7 +92,7 @@ $(document).ready(function(){
                     <td style="text-align: center" th:text="${user.username}"></td>
                     <td style="text-align: center">
                          <span th:text="${user.userid}" style="display:none"></span>
-                         <a href="#" target="content">重置密码</a>
+                         <a href="#" target="content" class="reset_pw">重置密码</a>
 						 <a href="#" target="content" class="remove_user" th:if="${user.username!='admin'}">删除</a>
                     </td>
                 </tr>
