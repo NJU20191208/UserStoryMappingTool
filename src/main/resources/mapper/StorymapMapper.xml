@@ -89,4 +89,20 @@
    releasenum, storynum, description, ongoingstorynum
    from storymap where userid = #{userid,jdbcType=BIGINT} and isdeleted = 0
    </select>
+   
+  <select id="findStoryMap" parameterType="java.lang.Long" resultType="java.lang.String">
+      select code
+      from mapcode where userid= #{userid,jdbcType=BIGINT} and {mapid,jdbcType=BIGINT}
+  </select>
+  
+  <insert id="saveStoryMap" parameterType="cn.edu.nju.userstorymappingtool.entity.MapCode">
+      insert into mapcode(userid,mapid,code)
+      values(#{userid,jdbcType=BIGINT},#{mapid,jdbcType=BIGINT},#{code,jdbcType=TEXT})
+  </insert>
+  
+  <update id="updateStoryMap" parameterType="cn.edu.nju.userstorymappingtool.entity.MapCode">
+      update mapcode
+      set code = #{code,jdbcType=TEXT}
+      where userid = #{userid,jdbcType=BIGINT} and mapid = #{mapid,jdbcType=BIGINT}
+  </update>
 </mapper>

@@ -143,6 +143,7 @@
 <script src="https://cdn.bootcss.com/html2canvas/0.5.0-alpha1/html2canvas.min.js"></script>
 <script src="https://unpkg.com/jspdf@latest/dist/jspdf.min.js"></script>
 <script type="text/javascript">
+
 	//属性初始颜色
 	var smcolor = "#3399FF";
 	var sccolor = "#FFFF99";
@@ -188,22 +189,38 @@
 
 	//保存地图
 	function saveMap(){
-		<!--var htmlStart = '<!DOCTYPE html><html>';-->
-<!--  		var htmlEnd = "</html>"-->
-<!--  		var html = $(":root").html();-->
-<!--  		var CodeView = htmlStart+html+htmlEnd;-->
-		<!--$.ajax({-->
-            <!--url:"",-->
-            <!--data:{"html":CodeView},-->
-            <!--type:"POST",-->
-            <!--success:function(data){-->
-                <!--alert("保存成功");-->
-            <!--}-->
-        <!--});-->
-        setTimeout(function(){
-			alert("保存成功");
-        	location.href = "/workspace";
-		},2000)
+		//var htmlStart = '<!DOCTYPE html><html>'
+  		//var htmlEnd = "</html>"
+  		//var html = $(":root").html()
+  		var CodeView = $(document.body).html();
+		var mapid = $.getUrlParam("mapid")
+		var storyMapCode = {
+			mapid:mapid,
+			code:CodeView
+		}
+		$.ajax({
+		    url: "/save_map",
+		    type: "post",
+		    traditional: true,
+		    contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+		    dataType: "text",
+		    data: storyMapCode,
+		    success: function (data) {
+		        console.log(data);
+		
+		        if(data > 0){
+		            alert("保存成功！")
+		        }else{
+		            alert("保存失败！");
+		        }
+		    },
+		    error: function (XMLHttpRequest, textStatus, errorThrown) {
+		        console.log(XMLHttpRequest.status);
+		        console.log(XMLHttpRequest.readyState);
+		        console.log(textStatus);
+		        alert("服务发生错误！");
+		    },
+		});
 	};
 
 	//双击导出地图为PNG
@@ -356,9 +373,40 @@
 		}
 		
 	}
+	
+	$.getUrlParam = function (name) {
+       var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+       var r = window.location.search.substr(1).match(reg);
+       if (r != null) return unescape(r[2]); return null;
+    }
 
 	// 文档加载后激活函数
 	$(document).ready(function() {
+		var mapid = $.getUrlParam("mapid")
+		var htmldata = {
+			mapid:mapid
+		}
+		$.ajax({
+		    url: "/find_map",
+		    type: "post",
+		    traditional: true,
+		    contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+		    dataType: "text",
+		    data: htmldata,
+		    success: function (data) {
+		        if(data != null){
+		            $(document.body).html(data)
+		        }else{
+		        	alert("获取地图失败！请刷新浏览器！")
+		        }
+		    },
+		    error: function (XMLHttpRequest, textStatus, errorThrown) {
+		        console.log(XMLHttpRequest.status);
+		        console.log(XMLHttpRequest.readyState);
+		        console.log(textStatus);
+		        alert("服务发生错误！");
+		    },
+		});
 		// 鼠标右键事件
 		$(document).contextmenu(function(e) {
 			var winWidth = $(document).width();

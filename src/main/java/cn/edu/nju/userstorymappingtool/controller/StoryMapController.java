@@ -1,5 +1,6 @@
 package cn.edu.nju.userstorymappingtool.controller;
 
+import cn.edu.nju.userstorymappingtool.entity.MapCode;
 import cn.edu.nju.userstorymappingtool.entity.Storymap;
 import cn.edu.nju.userstorymappingtool.entity.User;
 import cn.edu.nju.userstorymappingtool.service.intf.IStoryMapService;
@@ -34,6 +35,35 @@ public class StoryMapController {
             return "login";
         }
     }
+    
+    @PostMapping("save_map")
+    @ResponseBody
+    public long saveMap(HttpServletRequest request, HttpSession httpSession){
+    	User user = (User) httpSession.getAttribute("currentUser");
+    	long mapid = (long)request.getAttribute("mapid");
+    	String code = (String)request.getAttribute("code");
+    	if(user != null){
+    		if(storyMapService.findStoryMap(user.getUserid(), mapid) != null){
+    			return storyMapService.updateStoryMap(new MapCode(user.getUserid(),mapid,code));
+    		}else{
+    			return storyMapService.saveStoryMap(new MapCode(user.getUserid(),mapid,code));
+    		}
+    	}
+    	return 0;
+    }
+    
+    @PostMapping("find_map")
+    @ResponseBody
+    public String findMap(HttpServletRequest request, HttpSession httpSession){
+    	User user = (User) httpSession.getAttribute("currentUser");
+    	long mapid = (long)request.getAttribute("mapid");
+    	if(user != null){
+    		return storyMapService.findStoryMap(user.getUserid(), mapid);
+    	}
+    	return null;
+    }
+    
+    
 
     @RequestMapping(value = "/newstorymap")
     public String newStoryMap(HttpSession httpSession) {

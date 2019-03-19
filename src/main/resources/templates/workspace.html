@@ -75,7 +75,7 @@
                                     <div class="tile-group-content" id="storymaps-content">
                                         <div class="tile-cell" th:each="storymap : ${storymaps}" 
                                              data-bind="css: storymap.isArchived() ? ' archived' : '',  showElementOnHover: { selector: '.favorite-storymap', delay: 100 }">
-                                            <div class="tile-storymaps"
+                                            <div class="tile-storymaps" mapid="storymap.mapid"
                                                  data-bind="clickAndStop: function() { storymap.goToStorymapIfNotArchived($data) }">
                                                 <div class="favorite-storymap">
                                                     <i class="app-icon-favorite-o"

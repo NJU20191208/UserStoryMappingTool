@@ -13,7 +13,8 @@ $(function(){
     });
 
     $(".tile-storymaps").click(function () {
-        location.href = "/drawmap";
+    	var mapid = $(this).attr("mapid");
+        location.href = "/drawmap?mapid="+mapid;
     });
 
 
@@ -40,7 +41,7 @@ $(function(){
                         location.href = "/workspace";
                     }else{
                         //保存后打开map
-                        location.href = "/storymap?mapid="+data;
+                        location.href = "/drawmap?mapid="+data;
                     }
                 }else{
                     alert(data);
