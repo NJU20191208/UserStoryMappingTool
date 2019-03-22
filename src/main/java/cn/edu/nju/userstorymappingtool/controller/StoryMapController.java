@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class StoryMapController {
@@ -35,6 +37,18 @@ public class StoryMapController {
         }
     }
 
+    @PostMapping("delete_map")
+    @ResponseBody
+    public String deleteMap(HttpServletRequest request, HttpSession httpSession, Long mapid, Model model) {
+        User user = (User) httpSession.getAttribute("currentUser");
+        if (user != null) {
+            Long deletedMapid = storyMapService.deleteStoryMap(mapid);
+            return deletedMapid.toString();
+        } else {
+            return "login";
+        }
+    }
+
     @RequestMapping(value = "/newstorymap")
     public String newStoryMap(HttpSession httpSession) {
         User user = (User) httpSession.getAttribute("currentUser");
@@ -43,6 +57,33 @@ public class StoryMapController {
         }else{
             return "login";
         }
+    }
 
+    @RequestMapping(value = "/drawmap")
+    public String drawMap(HttpSession httpSession) {
+        User user = (User) httpSession.getAttribute("currentUser");
+        if(user != null) {
+            return "drawmap";
+        }else{
+            return "login";
+        }
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/search_map")
+    public Object workspace(HttpServletRequest request, HttpSession httpSession, String keyword, Model model) {
+        User user = (User) httpSession.getAttribute("currentUser");
+        if(user != null) {
+            Storymap storymap = new Storymap();
+            storymap.setUserid(user.getUserid());
+            storymap.setName(keyword);
+            List<Storymap> storymaps = storyMapService.getAllMapsByKeyword(storymap);
+            if(storymaps == null || storymaps.isEmpty()){
+                storymaps = new ArrayList<Storymap>();
+            }
+            return storymaps;
+        }else{
+            return "login";
+        }
     }
 }

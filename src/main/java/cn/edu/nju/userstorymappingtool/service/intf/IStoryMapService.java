@@ -10,4 +10,7 @@ public interface IStoryMapService {
 
     long addStoryMap(Storymap storymap);
 
+    long deleteStoryMap(Long mapid);
+
+    List<Storymap> getAllMapsByKeyword(Storymap storymap);
 }

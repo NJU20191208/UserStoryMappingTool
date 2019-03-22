@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="css/admin.css" type="text/css" rel="stylesheet" />
+<script type="text/javascript" src="js/jquery-1.8.1.min.js"></script>
+<script type="text/javascript" src="js/jquery.validate.min.js"></script>
+<script type="text/javascript" src="js/additional-methods.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+    $("#submit_btn").click(function () {
+        var username = $("#username").val();
+        var password = $("#password").val();
+        console.log(username);
+        var user = {
+            username: username,
+            password: password
+        };
+        console.log(user);
+        $.ajax({
+            url: "/add_user",
+            type: "post",
+            traditional: true,
+            contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+            dataType: "text",
+            data: user,
+            success: function (data) {
+                console.log(data);
+                if(data=="OK"){
+                    alert("添加成功");
+                    location.href = "/manage_user";
+                }else{
+                    alert(data);
+                }
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                console.log(XMLHttpRequest.status);
+                console.log(XMLHttpRequest.readyState);
+                console.log(textStatus);
+                alert("服务发生错误！");
+            },
+        });
+    });
+});	
+</script>
+</head>
+<body>
+<div class="content">
+    <div class="main_panel">
+        <h3 class="crumbs">
+            <img src="../images/sidebar_h3_bg1.gif" alt=""/> 当前位置：<a href="#">首页&nbsp;&nbsp;&nbsp;></a><a href="#" style="margin-left:-10px">用户管理</a>
+        </h3>
+        <div class="main_content">
+                <div class="form-box">
+                    <table class="up_table"  cellpadding="0" cellspacing="0">
+                        <tbody>
+                        	<tr>
+                            	<td align="right" width="40%"><label>用&nbsp;&nbsp;户&nbsp;&nbsp;名:</label></td>
+                            	<td align="left" width="60%"><label><input type="text" class="text" name="user.loginName" 
+                            	id="username" maxlength="20"
+								placeholder="请输入您的用户名" /><b>*</b></label></td>
+                        	</tr>
+                        	<tr>
+                            	<td align="right"><label>密&nbsp;&nbsp;&nbsp;&nbsp;码:</label></td>
+                            	<td align="left"><label><input type="password" class="text" name="user.telephone"
+                            	id="password" maxlength="30"
+								placeholder="请输入您的密码" /><b>*</b></label></td>
+                        	</tr>
+                        </tbody>
+                    </table>
+                    <div style=" text-align:center; margin-top:10px;">
+                    	<input type="button" id="submit_btn"  value="保存" class="btn5"/>
+                    </div>
+                    </form>
+                </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+

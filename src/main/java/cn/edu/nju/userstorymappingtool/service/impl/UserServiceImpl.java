@@ -7,6 +7,8 @@ import cn.edu.nju.userstorymappingtool.service.intf.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UserServiceImpl implements IUserService {
 
@@ -17,6 +19,21 @@ public class UserServiceImpl implements IUserService {
     @Override
     public int addUser(User user) {
         return userMapper.insert(user);
+    }
+
+    @Override
+    public List<User> getAllUsers() {
+        return userMapper.selectAll();
+    }
+
+    @Override
+    public Long deleteUser(Long userid) {
+        return userMapper.deleteByPrimaryKey(userid);
+    }
+
+    @Override
+    public int updateUserPassword(User user) {
+        return userMapper.updatePw(user);
     }
 
     @Override

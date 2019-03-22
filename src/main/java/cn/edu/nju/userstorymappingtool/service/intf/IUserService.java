@@ -15,4 +15,10 @@ public interface IUserService {
     User findUserByUserName(String username);
 
     int addUser(User user);
+
+    List<User> getAllUsers();
+
+    Long deleteUser(Long userid);
+
+    int updateUserPassword(User user);
 }
