@@ -1,6 +1,8 @@
 package cn.edu.nju.userstorymappingtool.service.impl;
 
+import cn.edu.nju.userstorymappingtool.dao.MapcodeMapper;
 import cn.edu.nju.userstorymappingtool.dao.StorymapMapper;
+import cn.edu.nju.userstorymappingtool.entity.Mapcode;
 import cn.edu.nju.userstorymappingtool.entity.Storymap;
 import cn.edu.nju.userstorymappingtool.service.intf.IStoryMapService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,8 @@ public class StoryMapServiceImpl implements IStoryMapService {
 
     @Autowired
     StorymapMapper storymapMapper;
+    @Autowired
+    MapcodeMapper mapcodeMapper;
 
     @Override
     public List<Storymap> getAllMapsByUserid(Long userid) {
@@ -33,4 +37,22 @@ public class StoryMapServiceImpl implements IStoryMapService {
     public List<Storymap> getAllMapsByKeyword(Storymap storymap) {
         return storymapMapper.selectAllMapsByKeyword(storymap);
     }
+
+    @Override
+    public int saveStoryMap(Mapcode mapcode) {
+        return mapcodeMapper.insert(mapcode);
+    }
+
+    @Override
+    public String findStoryMap(long userid, long  mapid) {
+        Mapcode mapcode = mapcodeMapper.selectumid(userid,mapid);
+        return mapcode.getCode();
+    }
+
+    @Override
+    public int updateStoryMap(Mapcode mapcode) {
+        return mapcodeMapper.updateByPrimaryKey(mapcode);
+    }
+
+
 }
