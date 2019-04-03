@@ -5,7 +5,7 @@ import cn.edu.nju.userstorymappingtool.entity.Storymap;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-@Service
+
 public interface IStoryMapService {
 
     List<Storymap> getAllMapsByUserid(Long userid);

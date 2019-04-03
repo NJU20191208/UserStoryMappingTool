@@ -101,7 +101,7 @@
 			<li class="putMap">
 				<span>导出为<i onclick="downloadAsPng()">&nbsp;&nbsp;png&nbsp;&nbsp;/&nbsp;&nbsp;</i><i onclick="downloadAsPdf()">pdf</i></span>
 			</li>
-		<ul>
+		</ul>
 	</div>
 	
 	<!--画布-->
@@ -124,16 +124,16 @@
 			<div class="RoleImages">
 				<ul>
 					<li>
-						<img src="../../static/images/faa.png" style="width:50px;height:50px;" class="RoleImg">
+						<img src="images/faa.png" style="width:50px;height:50px;" class="RoleImg">
 					</li>
 					<li>
-						<img src="../../static/images/fac.png" style="width:50px;height:50px;" class="RoleImg">
+						<img src="images/fac.png" style="width:50px;height:50px;" class="RoleImg">
 					</li>
 					<li>
-						<img src="../../static/images/fae.png" style="width:50px;height:50px;" class="RoleImg">
+						<img src="images/fae.png" style="width:50px;height:50px;" class="RoleImg">
 					</li>
 				</ul>
-			<div/>
+			</div>
 		</div>
 	</div>
 
@@ -143,6 +143,40 @@
 <script src="https://cdn.bootcss.com/html2canvas/0.5.0-alpha1/html2canvas.min.js"></script>
 <script src="https://unpkg.com/jspdf@latest/dist/jspdf.min.js"></script>
 <script type="text/javascript">
+    var initNum = 0
+    $(function(){
+        if(initNum == 0){
+            initData();
+        }
+    });
+    function initData(){
+        var mapid = $.getUrlParam("mapid")
+        var htmldata = {
+        	mapid:mapid
+        }
+        		$.ajax({
+        		    url: "/find_map",
+        		    type: "post",
+        		    traditional: true,
+        		    contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+        		    dataType: "text",
+        		    data: htmldata,
+        		    success: function (data) {
+        		        initNum += 1
+        		        if(data != null && data != ""){
+        		            $(document.body).html(data)
+        		        }else{
+        		        	alert("获取地图失败！请刷新浏览器！")
+        		        }
+        		    },
+        		    error: function (XMLHttpRequest, textStatus, errorThrown) {
+        		        console.log(XMLHttpRequest.status);
+        		        console.log(XMLHttpRequest.readyState);
+        		        console.log(textStatus);
+        		        alert("服务发生错误！");
+        		    },
+        		});
+    }
 
 	//属性初始颜色
 	var smcolor = "#3399FF";
@@ -165,11 +199,9 @@
 		}
 			
 		if(textContent.length != 0){
-			/*颜色设置（start）*/
 			var Ocolor = colorPanel.ChooseColorDlg(tempColor);//弹出调色板（选中默认值，即当前显示颜色对象的当前颜色）
 			var Hcolor = Ocolor.toString(16);//将八进制转换为十六进制
 			var colorValue = ((Hcolor.length<7)?"#000000".substring(0,7-Hcolor.length):"") + Hcolor;//处理为通用HTML颜色值
-			/*颜色设置（end）*/
 
 			if(obj == "m"){//更新背景色
 				$(".sm_text").css({"background":colorValue,"border-color":colorValue});
@@ -193,6 +225,7 @@
   		//var htmlEnd = "</html>"
   		//var html = $(":root").html()
   		var CodeView = $(document.body).html();
+        alert(CodeView)
 		var mapid = $.getUrlParam("mapid")
 		var storyMapCode = {
 			mapid:mapid,
@@ -382,32 +415,7 @@
 
 	// 文档加载后激活函数
 	$(document).ready(function() {
-		var mapid = $.getUrlParam("mapid")
 
-		var htmldata = {
-			mapid:mapid
-		}
-		$.ajax({
-		    url: "/find_map",
-		    type: "post",
-		    traditional: true,
-		    contentType: "application/x-www-form-urlencoded; charset=UTF-8",
-		    dataType: "text",
-		    data: htmldata,
-		    success: function (data) {
-		        if(data != null){
-		            $(document.body).html(data)
-		        }else{
-		        	alert("获取地图失败！请刷新浏览器！")
-		        }
-		    },
-		    error: function (XMLHttpRequest, textStatus, errorThrown) {
-		        console.log(XMLHttpRequest.status);
-		        console.log(XMLHttpRequest.readyState);
-		        console.log(textStatus);
-		        alert("服务发生错误！");
-		    },
-		});
 		// 鼠标右键事件
 		$(document).contextmenu(function(e) {
 			var winWidth = $(document).width();

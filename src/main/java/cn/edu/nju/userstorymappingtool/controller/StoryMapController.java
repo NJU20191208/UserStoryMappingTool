@@ -95,22 +95,24 @@ public class StoryMapController {
 
     @PostMapping("save_map")
     @ResponseBody
-    public long saveMap(HttpServletRequest request, HttpSession httpSession){
+    public long saveMap(HttpServletRequest request, HttpSession httpSession,long mapid,String code){
         User user = (User) httpSession.getAttribute("currentUser");
-        long mapid = (long)request.getAttribute("mapid");
-        String code = (String)request.getAttribute("code");
+        System.out.println(code);
         Mapcode mapcode = new Mapcode();
         mapcode.setUserid(user.getUserid());
         mapcode.setMapid(mapid);
         mapcode.setCode(code);
+        int rs = -1;
+        String CodeSaved = storyMapService.findStoryMap(user.getUserid(), mapid);
         if(user != null){
-            if(storyMapService.findStoryMap(user.getUserid(), mapid) != null){
-                return storyMapService.updateStoryMap(mapcode);
+            if(CodeSaved != null && !"".equals(CodeSaved)){
+                rs = storyMapService.updateStoryMap(mapcode);
             }else{
-                return storyMapService.saveStoryMap(mapcode);
+                rs = storyMapService.saveStoryMap(mapcode);
             }
         }
-        return 0;
+        System.out.println(rs);
+        return rs;
     }
 
     @PostMapping("find_map")
@@ -119,11 +121,12 @@ public class StoryMapController {
         User user = (User) httpSession.getAttribute("currentUser");
         System.out.println("user.getUsername():"+user.getUsername());
         User currentUser = userService.findUserByUserName(user.getUsername());
+        String code = "";
         if(user != null){
             System.out.println("currentUser.getUserid()"+currentUser.getUserid());
-            return storyMapService.findStoryMap(currentUser.getUserid(), mapid);
+            code = storyMapService.findStoryMap(currentUser.getUserid(), mapid);
         }
-        return null;
+        return code;
     }
 
 

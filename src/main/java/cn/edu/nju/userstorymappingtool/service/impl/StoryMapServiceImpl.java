@@ -45,8 +45,21 @@ public class StoryMapServiceImpl implements IStoryMapService {
 
     @Override
     public String findStoryMap(long userid, long  mapid) {
-        Mapcode mapcode = mapcodeMapper.selectumid(userid,mapid);
-        return mapcode.getCode();
+        Mapcode mapcode = new Mapcode();
+        mapcode.setUserid(userid);
+        mapcode.setMapid(mapid);
+        System.out.println(userid+"="+mapid);
+        try{
+            mapcode = mapcodeMapper.selectumid(mapcode);
+            System.out.println(mapcode.getId());
+        }catch(Exception e){
+            System.out.println("未找到地图");
+        }
+        if(mapcode == null){
+            return "";
+        }else {
+            return mapcode.getCode();
+        }
     }
 
     @Override
