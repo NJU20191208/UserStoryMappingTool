@@ -12,8 +12,10 @@ $(function(){
         location.href = "/newstorymap";
     });
 
+    
     $(".tile-storymaps").click(function () {
-        location.href = "/drawmap";
+        var mapid = $(this).attr("mapid");
+        location.href = "/drawmap?mapid="+mapid;
     });
 
 

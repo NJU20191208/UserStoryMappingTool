@@ -37,8 +37,7 @@
                     <div class="header-menu-item inline-block" data-bind="userRole:'WorkspaceAdmin,SubscriptionAdmin'">
                         <div class="manage-dropdown-menu" data-bind="dropdownmenu: true" data-ui-type="dropdown-menu"><a
                                 class="menu-button" href="#" tabindex="1"><i
-                                class="menu-button-icon user-icon"></i><span data-bind="text:userName"
-                                                                             th:text="${session.currentUser.username}">user</span></a>
+                                class="menu-button-icon user-icon"></i><span data-bind="text:userName" th:text="${session.currentUser.username}">user</span></a>
                         </div>
                     </div>
                 </div>
@@ -77,7 +76,7 @@
                                     </div>
                                     <div class="tile-group-content" id="storymaps-content">
                                         <div class="tile-cell" th:each="storymap : ${storymaps}">
-                                            <div class="tile-storymaps" >
+                                            <div class="tile-storymaps" th:mapid="${storymap.mapid}">
                                                 <span th:text="${storymap.mapid}" style="display:none"></span>
                                                 <div class="favorite-storymap">
                                                     <i class="app-icon-favorite-o" title="删除"></i>
