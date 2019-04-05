@@ -71,4 +71,10 @@
     select id, userid, mapid, code
     from mapcode
   </select>
+
+  <update id="updateByumId" parameterType="cn.edu.nju.userstorymappingtool.entity.Mapcode">
+    update mapcode
+    set code = #{code,jdbcType=LONGVARCHAR}
+    where userid = #{userid,jdbcType=BIGINT} and mapid = #{mapid,jdbcType=BIGINT}
+  </update>
 </mapper>

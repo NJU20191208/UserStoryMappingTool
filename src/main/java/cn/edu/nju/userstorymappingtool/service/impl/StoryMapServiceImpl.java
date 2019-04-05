@@ -64,7 +64,7 @@ public class StoryMapServiceImpl implements IStoryMapService {
 
     @Override
     public int updateStoryMap(Mapcode mapcode) {
-        return mapcodeMapper.updateByPrimaryKey(mapcode);
+        return mapcodeMapper.updateByumId(mapcode);
     }
 
 

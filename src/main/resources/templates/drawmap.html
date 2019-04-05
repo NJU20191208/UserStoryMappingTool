@@ -8,6 +8,9 @@
 		<meta name="Keywords" content="关键词,关键词"/>
 		<meta name="description" content=""/>
 
+		<link rel="stylesheet" type="text/css" href="css/jquery-ui.css">
+		<link href="css/evol.colorpicker.css" rel="stylesheet" type="text/css">
+
 		<!--css,js-->
 		<style type="text/css">
 			*{margin:0;padding:0;}
@@ -43,6 +46,7 @@
 
 			#title ul{margin-left:510px;}
 			#title ul li{list-style:none;float:left;}
+			#title ul li input{width:130px;background:black;font-family:"微软雅黑";font-size:16px;color:#fff;border:none;}
 			#title ul .changeColor{width:130px;margin-left:20px;}
 			#title ul .saveMap{width:40px;margin-left:50px;}
 			#title ul .putMap{width:140px;margin-left:40px;}
@@ -55,177 +59,167 @@
 
 	</head>
 <body>
-	<object id="colorPanel" width="0" height="0" classid="clsid:3050f819-98b5-11cf-bb82-00aa00bdce0b" ></object>
-	<!--<span class="code"></span>-->
+	<div id="mapContent">
+		<!--<span class="code"></span>-->
 
-	<ul class="contextmenu">
-		<li>
-			<a href="javascript:void(0);">创建主故事</a>
-		</li>
-		<li>
-			<a href="javascript:void(0);">创建子故事</a>
-		</li>
-		<li>
-			<a href="javascript:void(0);">创建故事细节</a>
-		</li>
-		<li>
-			<a href="javascript:void(0);">删除主故事</a>
-		</li>
-		<li>
-			<a href="javascript:void(0);">删除子故事</a>
-		</li>
-		<li>
-			<a href="javascript:void(0);">删除故事细节</a>
-		</li>
-	</ul>
-
-	<!--标题-->
-	<div id="title">
-		<div class="tname">
-			<h1>User Story Mapping</h1>
-		</div>
-
-		<ul>
-			<li class="changeColor">
-				<span onclick="changeColor('m')">改变主故事颜色</span>
+		<ul class="contextmenu">
+			<li>
+				<a href="javascript:void(0);">创建主故事</a>
 			</li>
-			<li class="changeColor">
-				<span onclick="changeColor('c')">改变子故事颜色</span>
+			<li>
+				<a href="javascript:void(0);">创建子故事</a>
 			</li>
-			<li class="changeColor">
-				<span onclick="changeColor('d')">改变故事细节颜色</span>
+			<li>
+				<a href="javascript:void(0);">创建故事细节</a>
 			</li>
-			<li class="saveMap">
-				<span onclick="saveMap()">保存</span>
+			<li>
+				<a href="javascript:void(0);">删除主故事</a>
 			</li>
-			<li class="putMap">
-				<span>导出为<i onclick="downloadAsPng()">&nbsp;&nbsp;png&nbsp;&nbsp;/&nbsp;&nbsp;</i><i onclick="downloadAsPdf()">pdf</i></span>
+			<li>
+				<a href="javascript:void(0);">删除子故事</a>
+			</li>
+			<li>
+				<a href="javascript:void(0);">删除故事细节</a>
 			</li>
 		</ul>
-	</div>
-	
-	<!--画布-->
-	<div id="map">
-		<div class="createRole"></div>
 
-		<div id="story" class="map_child">
-			<ul class="story_main"></ul>
-			<div class="clear"></div>
-			<ul class="story_child"></ul>
+		<!--标题-->
+		<div id="title">
+			<div class="tname">
+				<h1>User Story Mapping</h1>
+			</div>
+
+			<ul>
+				<li class="changeColor">
+					<input type ="button" value="改变主故事颜色" class="mcpicker" onclick="cColor('mcpicker')"/>
+				</li>
+				<li class="changeColor">
+					<input type ="button" value="改变子故事颜色" class="ccpicker" onclick="cColor('ccpicker')"/>
+				</li>
+				<li class="changeColor">
+					<input type ="button" value="改变故事细节颜色" class="dcpicker" onclick="cColor('dcpicker')"/>
+				</li>
+				<li class="saveMap">
+					<span onclick="saveMap()">保存</span>
+				</li>
+				<li class="putMap">
+					<span>导出为<i onclick="downloadAsPng()">&nbsp;&nbsp;png&nbsp;&nbsp;/&nbsp;&nbsp;</i><i onclick="downloadAsPdf()">pdf</i></span>
+				</li>
+			</ul>
 		</div>
 
-		<div id="release" class="map_child">
-			<div class="t_r_title">
-				<a href="javascript:void(0);" class="t_r_name">release1</a>
+		<!--画布-->
+		<div id="map">
+			<div class="createRole"></div>
+
+			<div id="story" class="map_child">
+				<ul class="story_main"></ul>
+				<div class="clear"></div>
+				<ul class="story_child"></ul>
+			</div>
+
+			<div id="release" class="map_child">
+				<div class="t_r_title">
+					<a href="javascript:void(0);" class="t_r_name">release1</a>
+				</div>
+			</div>
+
+			<div class="selectRole">
+				<div class="RoleImages">
+					<ul>
+						<li>
+							<img src="images/faa.png" style="width:50px;height:50px;" class="RoleImg">
+						</li>
+						<li>
+							<img src="images/fac.png" style="width:50px;height:50px;" class="RoleImg">
+						</li>
+						<li>
+							<img src="images/fae.png" style="width:50px;height:50px;" class="RoleImg">
+						</li>
+					</ul>
+				</div>
 			</div>
 		</div>
-
-		<div class="selectRole">
-			<div class="RoleImages">
-				<ul>
-					<li>
-						<img src="images/faa.png" style="width:50px;height:50px;" class="RoleImg">
-					</li>
-					<li>
-						<img src="images/fac.png" style="width:50px;height:50px;" class="RoleImg">
-					</li>
-					<li>
-						<img src="images/fae.png" style="width:50px;height:50px;" class="RoleImg">
-					</li>
-				</ul>
-			</div>
-		</div>
 	</div>
-
 </body>
 
 <script src="js/jquery-3.3.1.js"></script>
 <script src="https://cdn.bootcss.com/html2canvas/0.5.0-alpha1/html2canvas.min.js"></script>
 <script src="https://unpkg.com/jspdf@latest/dist/jspdf.min.js"></script>
+	<script src="js/jquery-ui.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/evol.colorpicker.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript">
-    var initNum = 0
-    $(function(){
-        if(initNum == 0){
-            initData();
-        }
-    });
     function initData(){
         var mapid = $.getUrlParam("mapid")
         var htmldata = {
         	mapid:mapid
         }
-        		$.ajax({
-        		    url: "/find_map",
-        		    type: "post",
-        		    traditional: true,
-        		    contentType: "application/x-www-form-urlencoded; charset=UTF-8",
-        		    dataType: "text",
-        		    data: htmldata,
-        		    success: function (data) {
-        		        initNum += 1
-        		        if(data != null && data != ""){
-        		            $(document.body).html(data)
-        		        }else{
-        		        	alert("获取地图失败！请刷新浏览器！")
-        		        }
-        		    },
-        		    error: function (XMLHttpRequest, textStatus, errorThrown) {
-        		        console.log(XMLHttpRequest.status);
-        		        console.log(XMLHttpRequest.readyState);
-        		        console.log(textStatus);
-        		        alert("服务发生错误！");
-        		    },
-        		});
+		$.ajax({
+			url: "/find_map",
+			type: "post",
+			async:false,
+			cache:false,
+			contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+			dataType: "text",
+			data: htmldata,
+			success: function (data) {
+				if(data != null && data != ""){
+					$("#mapContent").html(data)
+				}else{
+					alert("获取地图失败！请刷新浏览器！")
+				}
+			},
+			error: function (XMLHttpRequest, textStatus, errorThrown) {
+				console.log(XMLHttpRequest.status);
+				console.log(XMLHttpRequest.readyState);
+				console.log(textStatus);
+				alert("服务发生错误！");
+			},
+		});
     }
 
 	//属性初始颜色
 	var smcolor = "#3399FF";
 	var sccolor = "#FFFF99";
 	var sdcolor = "#fff";
+	var changeStory = "";
+	var text = "";
+	var cur = "";
 
-	function changeColor(obj){
-		var textContent;
-		var tempColor;
-		//获得需要上色的对象
-		if(obj == "m"){
-			textContent = $(".sm_text");
-			tempColor = smcolor;
-		}else if(obj == "c"){
-			textContent = $(".sc_text");
-			tempColor = sccolor;
-		}else{
-			textContent = $(".sd_text");
-			tempColor = sdcolor;
+	function setColor(evt,color){
+		if(color){
+			$("."+changeStory).css({"background":color,"border-color":color})
+			$("."+cur).attr("value",text)
 		}
-			
-		if(textContent.length != 0){
-			var Ocolor = colorPanel.ChooseColorDlg(tempColor);//弹出调色板（选中默认值，即当前显示颜色对象的当前颜色）
-			var Hcolor = Ocolor.toString(16);//将八进制转换为十六进制
-			var colorValue = ((Hcolor.length<7)?"#000000".substring(0,7-Hcolor.length):"") + Hcolor;//处理为通用HTML颜色值
+	}
 
-			if(obj == "m"){//更新背景色
-				$(".sm_text").css({"background":colorValue,"border-color":colorValue});
-				smcolor = colorValue;
-			}else if(obj == "c"){
-				$(".sc_text").css({"background":colorValue,"border-color":colorValue});
-				sccolor = colorValue;
-			}else{
-				$(".sd_text").css({"background":colorValue,"border-color":"#000"});
-				sdcolor = colorValue;
-			}
+	function cColor(obj){
+		cur = obj
+		if(obj == "mcpicker"){
+			changeStory = "sm_text";
+			text = "改变主故事颜色";
+		}else if(obj == "ccpicker"){
+			changeStory = "sc_text";
+			text = "改变子故事颜色";
 		}else{
-			alert("请先创建对应属性")
-		}	
+			changeStory = "sd_text";
+			text = "改变故事细节颜色";
+		}
+		$("."+obj).colorpicker({
+			defaultPalette: 'web',
+			strings: "主题颜色,标准颜色,web颜色,主题颜色,返回调色板,历史记录, 没有历史记录.",
+			hideButton: true,
+		}).on('change.color',setColor);
 
 	};
+
 
 	//保存地图
 	function saveMap(){
 		//var htmlStart = '<!DOCTYPE html><html>'
   		//var htmlEnd = "</html>"
   		//var html = $(":root").html()
-  		var CodeView = $(document.body).html();
-        alert(CodeView)
+  	var CodeView = $("#mapContent").html();
 		var mapid = $.getUrlParam("mapid")
 		var storyMapCode = {
 			mapid:mapid,
@@ -415,7 +409,7 @@
 
 	// 文档加载后激活函数
 	$(document).ready(function() {
-
+		initData();
 		// 鼠标右键事件
 		$(document).contextmenu(function(e) {
 			var winWidth = $(document).width();

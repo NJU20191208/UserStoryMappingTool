@@ -50,4 +50,6 @@ public interface MapcodeMapper {
     int updateByPrimaryKey(Mapcode record);
 
     Mapcode selectumid(Mapcode mapcode);
+
+    int updateByumId(Mapcode mapcode);
 }
