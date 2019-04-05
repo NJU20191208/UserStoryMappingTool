@@ -39,6 +39,9 @@
                                 class="menu-button" href="#" tabindex="1"><i
                                 class="menu-button-icon user-icon"></i><span data-bind="text:userName" th:text="${session.currentUser.username}">user</span></a>
                         </div>
+                        <div class="manage-dropdown-menu" data-bind="dropdownmenu: true" data-ui-type="dropdown-menu"><a
+                                class="menu-button" href="#" tabindex="1"><span id="logout">登出</span></a>
+                        </div>
                     </div>
                 </div>
             </div>

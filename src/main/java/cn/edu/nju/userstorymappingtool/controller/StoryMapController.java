@@ -34,8 +34,11 @@ public class StoryMapController {
             storymap.setName(name);
             storymap.setDescription(description);
             storymap.setUserid(user.getUserid());
-            Long mapid = storyMapService.addStoryMap(storymap);
-            return mapid.toString();
+            storyMapService.addStoryMap(storymap);
+            if(storymap.getMapid() != null){
+                return storymap.getMapid().toString();
+            }
+            return "0";
         } else {
             return "login";
         }
