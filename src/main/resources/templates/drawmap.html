@@ -7,7 +7,9 @@
 		<title>绘制用户地图</title>
 		<meta name="Keywords" content="关键词,关键词"/>
 		<meta name="description" content=""/>
-
+		<link rel="apple-touch-icon" sizes="180x180" href="https://app.storiesonboard.com/apple-touch-icon.png">
+		<link rel="icon" type="image/png" sizes="32x32" href="https://app.storiesonboard.com/favicon-32x32.png">
+		<link rel="icon" type="image/png" sizes="16x16" href="https://app.storiesonboard.com/favicon-16x16.png">
 		<link rel="stylesheet" type="text/css" href="css/jquery-ui.css">
 		<link href="css/evol.colorpicker.css" rel="stylesheet" type="text/css">
 
@@ -86,7 +88,7 @@
 		<!--标题-->
 		<div id="title">
 			<div class="tname">
-				<h1>User Story Mapping</h1>
+				<h1 onclick="workspace()" style="cursor:pointer">工作空间</h1>
 			</div>
 
 			<ul>
@@ -146,9 +148,13 @@
 <script src="js/jquery-3.3.1.js"></script>
 <script src="https://cdn.bootcss.com/html2canvas/0.5.0-alpha1/html2canvas.min.js"></script>
 <script src="https://unpkg.com/jspdf@latest/dist/jspdf.min.js"></script>
-	<script src="js/jquery-ui.js" type="text/javascript" charset="utf-8"></script>
-	<script src="js/evol.colorpicker.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/jquery-ui.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/evol.colorpicker.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript">
+	function workspace(){
+		location.href = "/workspace";
+	}
+
     function initData(){
         var mapid = $.getUrlParam("mapid")
         var htmldata = {
@@ -527,6 +533,7 @@
 		$(document).click(function() {
 			$(".contextmenu").hide();
 		});
+
 	});
 </script>
 

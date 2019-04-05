@@ -12,6 +12,10 @@ $(function(){
         location.href = "/newstorymap";
     });
 
+    $("#logout").click(function () {
+        location.href = "/logout";
+    });
+
     
     $(".tile-storymaps").click(function () {
         var mapid = $(this).attr("mapid");
@@ -35,14 +39,13 @@ $(function(){
             data: storyMap,
             success: function (data) {
                 console.log(data);
-
                 if(data > 0){
                     //保存后回到workspace
                     if(action == 1){
                         location.href = "/workspace";
                     }else{
                         //保存后打开map
-                        location.href = "/storymap?mapid="+data;
+                        location.href = "/drawmap?mapid="+data;
                     }
                 }else{
                     $.alert(data);
@@ -141,7 +144,7 @@ $(function(){
                             console.log(item);
                             var map = $("#base-result").clone();
                             map.find("a").html(item["name"]);
-                            map.find("a").attr("href", "/storymap?mapid="+item["mapid"]);
+                            map.find("a").attr("href", "/drawmap?mapid="+item["mapid"]);
                             $(".matching-storymap-lists").append(map);
                             map.show();
                         });
