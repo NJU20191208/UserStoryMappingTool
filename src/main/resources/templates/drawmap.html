@@ -128,13 +128,13 @@
 				<div class="RoleImages">
 					<ul>
 						<li>
-							<img src="images/faa.png" style="width:50px;height:50px;" class="RoleImg">
+							<img src="images/faa.png" style="width:50px;height:50px;" class="RoleImg" onclick="selectedRole(this)">
 						</li>
 						<li>
-							<img src="images/fac.png" style="width:50px;height:50px;" class="RoleImg">
+							<img src="images/fac.png" style="width:50px;height:50px;" class="RoleImg" onclick="selectedRole(this)">
 						</li>
 						<li>
-							<img src="images/fae.png" style="width:50px;height:50px;" class="RoleImg">
+							<img src="images/fae.png" style="width:50px;height:50px;" class="RoleImg" onclick="selectedRole(this)">
 						</li>
 					</ul>
 				</div>
@@ -149,6 +149,10 @@
 	<script src="js/jquery-ui.js" type="text/javascript" charset="utf-8"></script>
 	<script src="js/evol.colorpicker.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript">
+	//属性初始颜色
+	var smcolor = "#3399FF";
+	var sccolor = "#FFFF99";
+	var sdcolor = "#fff";
     function initData(){
         var mapid = $.getUrlParam("mapid")
         var htmldata = {
@@ -164,7 +168,21 @@
 			data: htmldata,
 			success: function (data) {
 				if(data != null && data != ""){
-					$("#mapContent").html(data)
+					var codehtml = data.split("////");
+					$("#mapContent").html(codehtml[0]);
+					if(codehtml[1] != null){
+						var storiesTxt = codehtml[1].split(";");
+						var textareas = $("textarea");
+						for(var i=0;i<textareas.length;i++){
+							textareas.eq(i).val(storiesTxt[i])
+						}
+					}
+					if(codehtml[2] != null){
+						var colors = codehtml[2].split(";");
+						smcolor = colors[0];
+						sccolor = colors[1];
+						sdcolor = colors[2];
+					}
 				}else{
 					//alert("获取地图失败！请刷新浏览器！")
 				}
@@ -178,10 +196,7 @@
 		});
     }
 
-	//属性初始颜色
-	var smcolor = "#3399FF";
-	var sccolor = "#FFFF99";
-	var sdcolor = "#fff";
+
 	var changeStory = "";
 	var text = "";
 	var cur = "";
@@ -190,6 +205,14 @@
 		if(color){
 			$("."+changeStory).css({"background":color,"border-color":color})
 			$("."+cur).attr("value",text)
+		}
+
+		if(cur == "mcpicker"){
+			smcolor = color;
+		}else if(cur == "ccpicker"){
+			sccolor = color;
+		}else{
+			sdcolor = color;
 		}
 	}
 
@@ -220,7 +243,14 @@
   		//var htmlEnd = "</html>"
   		//var html = $(":root").html()
   	var CodeView = $("#mapContent").html();
-		var mapid = $.getUrlParam("mapid")
+		var mapid = $.getUrlParam("mapid");
+		var storyText = "";
+		$("textarea").each(function(){
+			var val = $(this).val()
+			storyText += (val+";")
+		});
+		storyText = storyText.substr(0, storyText.length - 1);
+		CodeView += ("////"+storyText+"////"+smcolor+";"+sccolor+";"+sdcolor);
 		var storyMapCode = {
 			mapid:mapid,
 			code:CodeView
@@ -376,16 +406,15 @@
 	}
 
 	//选择人物
-	$(".RoleImg").click(function(){
-		var src = $(this).attr("src");
+	function selectedRole(obj){
+		var src = $(obj).attr("src");
 		$(".selectRole").hide();
 		$(".createRole").show();
 		var roleLeft = stLeft+(stWidth-30)/2;
-		//src='"+src+"' 
+		//src='"+src+"'
 		var roleElement = "<img src='"+src+"' style='width:30px;height:30px;position:absolute;top:5px;left:"+roleLeft+"px;' ondblclick='deleteRole(this)'/>";
 		$(".createRole").append(roleElement);
-
-	});
+	}
 
 	//删除元素
 	function deleteRole(obj){
