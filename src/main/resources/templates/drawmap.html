@@ -225,7 +225,8 @@
 		//var htmlStart = '<!DOCTYPE html><html>'
   		//var htmlEnd = "</html>"
   		//var html = $(":root").html()
-  	var CodeView = $("#mapContent").html();
+  		var CodeView = $("#mapContent").html();
+		console.log(CodeView);
 		var mapid = $.getUrlParam("mapid")
 		var storyMapCode = {
 			mapid:mapid,
@@ -472,7 +473,7 @@
 						child_story_width = child_story_width - main_story_width;
 						
 					}
-					var main_story_item = "<li style='margin-left:"+child_story_width+"px'><textarea rows='5' cols='17' maxlength='100' class='sm_text' style='background:"+smcolor+"' ondblclick='createRole(this)'></textarea></li>";
+					var main_story_item = "<li style='margin-left:"+child_story_width+"px'><div contenteditable='true' rows='5' cols='17' maxlength='100' class='sm_text' style='background:"+smcolor+"' ondblclick='createRole(this)'></div></li>";
 					$(".story_main").append(main_story_item);
 					break;
 				case 1:
@@ -482,7 +483,7 @@
 						break;
 					}
 					var child_marginLeft = 8
-					var child_story_item = "<li style='margin-left:"+child_marginLeft+"px'><textarea rows='5' cols='17' maxlength='100' class='sc_text' style='background:"+sccolor+"'></textarea></li>";
+					var child_story_item = "<li style='margin-left:"+child_marginLeft+"px'><div contenteditable='true' rows='5' cols='17' maxlength='100' class='sc_text' style='background:"+sccolor+"'></div></li>";
 					$(".story_child").append(child_story_item);
 					break;
 				case 2:
@@ -499,9 +500,9 @@
 						}
 					});
 					if(isHasDeatil){
-						clickUl.append("<li style='margin:0 0 8px 8px;'><textarea rows='5' cols='17' maxlength='100' class='sd_text' style='background:"+sdcolor+"'></textarea></li>")
+						clickUl.append("<li style='margin:0 0 8px 8px;'><div contenteditable='true' rows='5' cols='17' maxlength='100' class='sd_text' style='background:"+sdcolor+"'></div></li>")
 					}else{
-						$("#release").append("<ul style='left:"+detailMarginLeft+"px'><li style='margin:8px 0 0 8px;'><textarea rows='5' cols='17' maxlength='100' class='sd_text' style='background:"+sdcolor+"'></textarea></li></ul>")
+						$("#release").append("<ul style='left:"+detailMarginLeft+"px'><li style='margin:8px 0 0 8px;'><div contenteditable='true' rows='5' cols='17' maxlength='100' class='sd_text' style='background:"+sdcolor+"'></div></li></ul>")
 					}
 					break;
 				case 3:
